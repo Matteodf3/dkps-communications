@@ -1,0 +1,172 @@
+:root {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  color: #f5f5f2;
+  background: #1b1d1f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body { margin: 0; min-width: 320px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+
+.prototype-header { height: 78px; position: relative; z-index: 5; background: #17191b; border-bottom: 1px solid #343639; }
+.prototype-header-inner { width: min(calc(100% - 96px), 1360px); height: 100%; margin: auto; display: flex; align-items: center; justify-content: space-between; }
+.prototype-header-inner > a { display: inline-flex; align-items: center; }
+.prototype-header img { display: block; width: 146px; height: auto; }
+.prototype-header nav { display: flex; gap: 44px; align-items: center; }
+.prototype-header nav a { font-size: 13px; text-decoration: none; letter-spacing: .025em; }
+.prototype-header nav a:hover, .prototype-header nav a:focus-visible { text-decoration: underline; text-underline-offset: 5px; }
+.prototype-header nav a:last-child { color: #fff; }
+.prototype-header nav span { color: #eb332a; margin-left: 4px; }
+
+#stage { min-height: calc(100vh - 78px); }
+.variant { position: relative; isolation: isolate; min-height: calc(100vh - 78px); overflow: clip; }
+.variant-context { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: .09em; line-height: 1.5; text-transform: uppercase; margin: 0 0 20px; }
+.variant h1 { font-weight: 500; letter-spacing: -.047em; line-height: 1.035; margin: 0; text-wrap: balance; }
+.variant p { margin-top: 0; }
+.prototype-cta { min-height: 44px; display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; border-bottom: 1px solid currentColor; padding: 0 0 3px; font-size: 14px; font-weight: 500; line-height: 1.3; text-decoration: none; white-space: nowrap; }
+.prototype-cta span { color: #cc2f26; font-size: 19px; transition: transform 150ms ease; }
+.prototype-cta:hover span, .prototype-cta:focus-visible span { transform: translate(3px,-3px); }
+.prototype-cta:focus-visible { outline: 2px solid #d43128; outline-offset: 5px; }
+.prototype-cta--light span { color: #ff564c; }
+
+/* Crop the genuine transparent manufacturer photography to the physical radio. */
+.cutout-motorola, .cutout-hytera { position: relative; overflow: hidden; flex: none; }
+.cutout-motorola { aspect-ratio: 1156 / 3443; }
+.cutout-motorola img { display: block; position: absolute; max-width: none; width: 346.02%; height: auto; left: -125%; top: -8.34%; }
+.cutout-hytera { aspect-ratio: 429 / 933; }
+.cutout-hytera img { display: block; position: absolute; max-width: none; width: 509.09%; height: auto; left: -194.17%; top: -12.86%; }
+
+/* 01 — an operating environment carries the composition. */
+.variant--operational { background: #222426; min-height: max(735px, calc(100vh - 78px)); display: flex; flex-direction: column; justify-content: flex-end; }
+.operational-photo { position: absolute; inset: 0 0 215px; z-index: -1; background: #a6a9a8; }
+.operational-photo::after { content: ''; position: absolute; inset: 0; border-bottom: 3px solid #c82b24; }
+.operational-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 85%; }
+.operational-story { width: min(calc(100% - 96px), 1360px); margin: auto auto 0; min-height: 318px; display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 7%; position: relative; z-index: 1; }
+.operational-story::before { content: ''; position: absolute; z-index: -1; top: 0; right: -100vw; bottom: 0; left: -100vw; background: #202224; }
+.operational-copy { padding: 34px 0 100px; max-width: 920px; }
+.operational-copy .variant-context { color: #e4463d; margin-bottom: 14px; }
+.operational-copy h1 { font-size: clamp(36px, 4.5vw, 68px); max-width: 830px; }
+.operational-copy > p:not(.variant-context) { color: #d0d1d0; font-size: 16px; line-height: 1.48; max-width: 680px; margin: 20px 0 20px; }
+.operational-radio { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-top: -230px; padding-bottom: 91px; }
+.operational-radio .cutout-motorola { width: 145px; height: 432px; filter: drop-shadow(10px 16px 8px rgba(0,0,0,.4)); }
+.operational-radio > span { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .02em; color: #b3b5b4; margin-top: 12px; text-align: center; }
+
+/* 02 — equipment advertising with a single, deliberate brand plane. */
+.variant--product { min-height: max(725px, calc(100vh - 78px)); background: #16181a; display: flex; flex-direction: column; }
+.product-red-field { position: absolute; z-index: -1; top: 0; right: 0; bottom: 86px; width: 36%; background: #ba241c; }
+.product-body { width: min(calc(100% - 96px), 1360px); margin: auto; flex: 1; min-height: 635px; display: grid; grid-template-columns: minmax(0, .96fr) minmax(370px, .84fr); position: relative; }
+.product-copy { padding: clamp(68px, 9vh, 122px) 0 60px; z-index: 2; max-width: 650px; }
+.product-copy .variant-context { color: #ef4b42; }
+.product-copy h1 { font-size: clamp(48px, 5vw, 76px); max-width: 620px; }
+.product-copy > p:not(.variant-context) { color: #d6d7d6; font-size: 17px; line-height: 1.5; max-width: 500px; margin: 24px 0 32px; }
+.product-object { align-self: stretch; position: relative; display: flex; align-items: flex-end; justify-content: center; }
+.product-object .cutout-motorola { width: clamp(186px, 17vw, 250px); margin: 0 8% -11px 0; filter: drop-shadow(19px 30px 12px rgba(0,0,0,.37)); }
+.product-object-caption { position: absolute; right: -5px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font: 11px/1.2 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .06em; color: #fff; }
+.product-flow { min-height: 86px; background: #f5f5f1; color: #242729; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 max(48px, calc((100vw - 1360px)/2)); font: 12px/1.35 'IBM Plex Mono', monospace; letter-spacing: .025em; text-transform: uppercase; }
+.product-flow span { white-space: nowrap; }
+.product-flow i { font-style: normal; font-size: 18px; color: #bd2921; }
+
+/* 03 — the architecture is the hero: one line, five distinct actors. */
+.variant--system { background: #f2f3f0; color: #1c2022; min-height: max(730px, calc(100vh - 78px)); padding: 55px max(48px, calc((100vw - 1360px)/2)) 108px; }
+.system-visual-head { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(300px,.7fr); gap: 80px; align-items: end; border-top: 3px solid #c72b23; padding-top: 22px; }
+.system-visual-head .variant-context { color: #b92a23; margin-bottom: 18px; }
+.system-visual-head h1 { font-size: clamp(44px, 4.35vw, 66px); max-width: 650px; }
+.system-visual-head > div:last-child { max-width: 410px; padding-bottom: 6px; }
+.system-visual-head > div:last-child p { color: #3b4040; font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
+.system-visual-track { display: grid; grid-template-columns: 1.05fr 1fr 1fr 1fr 1.3fr; gap: 0; align-items: stretch; position: relative; margin-top: 44px; min-height: 370px; border-top: 1px solid #b9bdb9; border-bottom: 1px solid #b9bdb9; }
+.system-visual-track::before { content: ''; position: absolute; z-index: 0; left: 7.5%; right: 11%; top: 51%; height: 3px; background: #c52c24; }
+.system-visual-node { position: relative; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 20px 27px 22px; border-left: 1px solid #c9ccca; }
+.system-visual-node:first-child { border-left: 0; padding-left: 0; }
+.system-visual-node:last-child { padding-right: 0; }
+.system-visual-node::before { content: ''; width: 11px; height: 11px; border-radius: 50%; background: #c72b23; border: 3px solid #f2f3f0; position: absolute; z-index: 1; left: 17px; top: calc(51% - 4px); box-sizing: content-box; }
+.system-visual-node:first-child::before { left: 8%; }
+.system-visual-node::after { content: '→'; position: absolute; z-index: 2; top: calc(51% - 23px); right: 5px; color: #a4231d; font: 27px/1 'IBM Plex Sans', sans-serif; }
+.system-visual-node:last-child::after { content: none; }
+.system-visual-node strong { display: block; min-height: 65px; font-size: clamp(17px, 1.55vw, 24px); font-weight: 500; line-height: 1.1; letter-spacing: -.03em; }
+.system-visual-node > span { font: 11px/1.4 'IBM Plex Mono', monospace; color: #666c6b; }
+.system-visual-node--radio .cutout-hytera { position: absolute; width: 84px; height: 183px; left: 24%; top: 10px; }
+.system-visual-node--teams img { width: calc(100% - 28px); height: 168px; position: absolute; top: 17px; right: 0; object-fit: cover; object-position: center; }
+.system-visual-note { font: 11px/1.45 'IBM Plex Mono', monospace; color: #666c6b; margin: 13px 0 0; }
+
+@media (max-width: 980px) {
+  .prototype-header-inner, .operational-story, .product-body { width: min(calc(100% - 56px), 1360px); }
+  .variant--system { padding-left: 28px; padding-right: 28px; }
+  .operational-story { grid-template-columns: minmax(0,1fr) 180px; gap: 24px; }
+  .operational-radio .cutout-motorola { width: 118px; height: auto; }
+  .operational-radio { margin-top: -145px; }
+  .product-body { grid-template-columns: minmax(0,1fr) minmax(260px,.8fr); }
+  .product-red-field { width: 31%; }
+  .product-object .cutout-motorola { width: 180px; margin-right: 10%; }
+  .product-flow { padding: 0 28px; }
+  .system-visual-head { gap: 40px; }
+  .system-visual-node { padding-left: 13px; padding-right: 10px; }
+  .system-visual-node::before { left: 9px; }
+}
+
+@media (max-width: 680px) {
+  .prototype-header { height: 64px; }
+  .prototype-header-inner { width: calc(100% - 36px); }
+  .prototype-header img { width: 115px; }
+  .prototype-header nav { gap: 0; }
+  .prototype-header nav a { font-size: 12px; }
+  .prototype-header nav a:first-child { display: none; }
+  #stage, .variant { min-height: calc(100vh - 64px); }
+  .variant-context { font-size: 10px; }
+
+  .variant--operational { min-height: 825px; justify-content: flex-start; }
+  .operational-photo { position: relative; inset: auto; height: 300px; flex: none; }
+  .operational-photo::after { background: none; }
+  .operational-photo img { object-position: center; }
+  .operational-story { width: calc(100% - 36px); display: block; min-height: 525px; }
+  .operational-copy { padding: 26px 0 112px; }
+  .operational-copy h1 { font-size: clamp(38px, 10vw, 56px); max-width: 530px; }
+  .operational-copy > p:not(.variant-context) { max-width: 420px; font-size: 14px; margin: 18px 110px 17px 0; }
+  .operational-radio { position: absolute; right: 0; bottom: 105px; margin: 0; padding: 0; }
+  .operational-radio .cutout-motorola { width: 95px; height: 283px; }
+  .operational-radio > span { display: none; }
+
+  .variant--product { min-height: 915px; }
+  .product-red-field { top: 305px; bottom: 116px; width: 39%; }
+  .product-body { width: calc(100% - 36px); display: block; min-height: 799px; }
+  .product-copy { padding: 35px 0 0; max-width: 500px; }
+  .product-copy h1 { font-size: clamp(42px, 11vw, 60px); max-width: 420px; }
+  .product-copy > p:not(.variant-context) { font-size: 14px; line-height: 1.45; max-width: 420px; margin: 16px 0; }
+  .product-object { position: absolute; inset: 310px 0 0; align-items: flex-end; justify-content: center; }
+  .product-object .cutout-motorola { width: 143px; margin: 0 0 -9px 22%; }
+  .product-object-caption { font-size: 9px; right: 0; top: 58%; }
+  .product-flow { min-height: 116px; padding: 15px 18px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; font-size: 9px; }
+  .product-flow i:nth-of-type(2) { display: none; }
+  .product-flow span:nth-of-type(3) { grid-column: 1; }
+  .product-flow i:nth-of-type(3) { grid-column: 2; }
+
+  .variant--system { padding: 28px 18px 100px; }
+  .system-visual-head { display: block; border-top-width: 2px; padding-top: 15px; }
+  .system-visual-head h1 { font-size: clamp(39px, 10vw, 56px); }
+  .system-visual-head > div:last-child { padding-top: 19px; }
+  .system-visual-head > div:last-child p { font-size: 14px; margin-bottom: 14px; }
+  .system-visual-track { margin-top: 28px; display: block; min-height: 0; border-top: 1px solid #b9bdb9; border-bottom: 1px solid #b9bdb9; }
+  .system-visual-track::before { left: 16px; right: auto; top: 26px; bottom: 26px; width: 2px; height: auto; }
+  .system-visual-node { min-height: 92px; padding: 14px 14px 13px 50px; border: 0; border-bottom: 1px solid #d2d4d1; justify-content: center; }
+  .system-visual-node:last-child { border-bottom: 0; }
+  .system-visual-node:first-child { padding-left: 50px; min-height: 114px; }
+  .system-visual-node strong { min-height: 0; font-size: 20px; }
+  .system-visual-node > span { font-size: 10px; }
+  .system-visual-node::before, .system-visual-node:first-child::before { top: calc(50% - 8px); left: 8px; }
+  .system-visual-node::after { content: '↓'; top: auto; right: auto; bottom: -17px; left: 10px; background: #f2f3f0; font-size: 18px; }
+  .system-visual-node:last-child::after { content: none; }
+  .system-visual-node--radio .cutout-hytera { width: 42px; height: 91px; left: auto; right: 8px; top: 11px; }
+  .system-visual-node--teams { min-height: 132px; }
+  .system-visual-node--teams img { width: 95px; height: 85px; top: 21px; right: 0; }
+  .system-visual-note { font-size: 9px; max-width: 320px; }
+}
+
+@media (max-width: 390px) {
+  .operational-copy > p:not(.variant-context) { margin-right: 88px; }
+  .operational-radio .cutout-motorola { width: 78px; height: 233px; }
+  .product-object .cutout-motorola { width: 130px; }
+}
