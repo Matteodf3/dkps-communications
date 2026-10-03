@@ -4,11 +4,10 @@ import { Outlet, useLocation } from 'react-router'
 import { Link, Localize, NavLink, useLocale } from './i18n'
 
 const primary = [
-  ['System', '/system'],
-  ['Platform', '/platform'],
-  ['Devices', '/devices'],
-  ['Industries', '/industries'],
+  ['Home', '/'],
   ['Solutions', '/solutions'],
+  ['Products', '/devices'],
+  ['Industries', '/industries'],
   ['About', '/about'],
 ] as const
 
@@ -22,7 +21,7 @@ const titles: Record<string, string> = {
   '/solutions': 'Operational solutions',
   '/plans': 'Plans & project scope',
   '/about': 'About DKPS',
-  '/contact': 'Contact',
+  '/contact': 'Build your system',
 }
 
 function usePageNavigation() {
@@ -69,7 +68,8 @@ function Header() {
           <span aria-hidden="true">/</span>
           <button type="button" lang="it" aria-pressed={locale === 'it'} onClick={() => { setLocale('it'); setMenuOpen(false) }}>IT</button>
         </div>
-        <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'nav-contact nav-contact--active' : 'nav-contact'}>Contact <span aria-hidden="true">↗</span></NavLink>
+        <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'nav-contact nav-contact--active' : 'nav-contact'}>Build your system <span aria-hidden="true">↗</span></NavLink>
+        <a className="client-access" href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer" aria-label={locale === 'it' ? 'DKPS Connect, area clienti (si apre in una nuova scheda)' : 'DKPS Connect, client area (opens in a new tab)'}>DKPS Connect <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header></Localize>
@@ -85,7 +85,7 @@ function Footer() {
       </div>
       <div className="footer-column"><h2>System</h2><Link to="/system">Architecture</Link><Link to="/devices">Radios & devices</Link><Link to="/connectivity">Connectivity</Link><Link to="/platform">Platform & dispatch</Link></div>
       <div className="footer-column"><h2>Applications</h2><Link to="/industries">Industries</Link><Link to="/solutions">Solutions</Link><Link to="/plans">Plans & scope</Link></div>
-      <div className="footer-column"><h2>Company</h2><Link to="/about">About DKPS</Link><Link to="/contact">Contact</Link><a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">Privacy policy ↗</a></div>
+      <div className="footer-column"><h2>Company</h2><Link to="/about">About DKPS</Link><Link to="/contact">Contact</Link><a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">Privacy policy ↗</a><div className="footer-client-access"><span>For existing clients</span><a href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer">DKPS Connect ↗</a></div></div>
     </div>
     <div className="site-wrap footer-bottom"><span>© DKPS Communications</span><span>Communications designed for the way organisations work.</span></div>
   </footer></Localize>
@@ -110,7 +110,7 @@ export function TextLink({ to, children, light = false }: { to: string; children
 
 export function ContactCta({ title = 'Let’s design the right communication system.', text = 'Tell us how your teams, sites and vehicles work. We can discuss a system around the operation.' }: { title?: string; text?: string }) {
   const { t } = useLocale()
-  return <section className="contact-band"><div className="site-wrap contact-band-inner"><div><Eyebrow>Next step</Eyebrow><h2>{t(title)}</h2><p>{t(text)}</p></div><TextLink to="/contact" light>Discuss your operation</TextLink></div></section>
+  return <section className="contact-band"><div className="site-wrap contact-band-inner"><div><Eyebrow>Next step</Eyebrow><h2>{t(title)}</h2><p>{t(text)}</p></div><TextLink to="/contact" light>Tell us about your operation</TextLink></div></section>
 }
 
 export function PageIntro({ index, eyebrow, title, lead, children }: { index: string; eyebrow: string; title: string; lead: string; children?: ReactNode }) {

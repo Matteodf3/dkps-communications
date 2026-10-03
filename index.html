@@ -8,6 +8,20 @@
     <title>DKPS Communications | Professional communication systems</title>
   </head>
   <body>
+    <!-- Netlify detects React forms from static HTML at build time. Keep field names in sync with OperationalBrief. -->
+    <form name="dkps-operational-brief" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="sector" />
+      <input name="scope" />
+      <input name="communication" />
+      <input name="context" />
+      <input name="language" />
+      <input name="name" />
+      <input name="company" />
+      <input name="email" />
+      <input name="phone" />
+      <input name="privacy-consent" />
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

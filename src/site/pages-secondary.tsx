@@ -1,9 +1,7 @@
-import { useState } from 'react'
-import type { FormEvent } from 'react'
-import { useLocation } from 'react-router'
 import { Link, Localize, useLocale } from './i18n'
 import { industries, planNames, solutions } from './content'
 import { ContactCta, Eyebrow, PageIntro, SectionHeading, TextLink } from './layout'
+import { OperationalBrief } from './OperationalBrief'
 
 export function IndustriesPage() {
   const { locale, t } = useLocale()
@@ -43,30 +41,7 @@ export function AboutPage() {
 }
 
 export function ContactPage() {
-  const [opened, setOpened] = useState(false)
-  const { locale } = useLocale()
-  const location = useLocation()
-  const context = new URLSearchParams(location.search).get('context') ?? ''
-
-  function openDraft(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const name = String(data.get('name') ?? '').trim()
-    const email = String(data.get('email') ?? '').trim()
-    const company = String(data.get('company') ?? '').trim()
-    const operation = String(data.get('operation') ?? '').trim()
-    const body = locale === 'it'
-      ? `Nome: ${name}\nEmail aziendale: ${email}\nOrganizzazione: ${company}\n\nAttività ed esigenze di comunicazione:\n${operation}`
-      : `Name: ${name}\nWork email: ${email}\nOrganisation: ${company}\n\nOperation and communication needs:\n${operation}`
-    const subject = `${locale === 'it' ? 'Richiesta sistema di comunicazione DKPS' : 'DKPS communication system enquiry'}${context ? ` — ${context}` : ''}`
-    window.location.href = `mailto:info@dkpscommunications.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setOpened(true)
-  }
-
-  return <Localize>
-    <PageIntro index="09" eyebrow="Contact" title="Tell us how communication works today." lead="A useful conversation starts with teams, facilities, vehicles and the people who coordinate them. DKPS can then discuss an appropriate Push-to-Talk system." />
-    <section className="section site-wrap contact-page-grid"><div><SectionHeading index="01 / Enquiry" title="Describe the operation." text="This form opens an email draft in your own mail app. You can review it before sending; no details are transmitted until you send that email." /><form className="contact-form" onSubmit={openDraft}><div className="field-pair"><label>Full name <input name="name" autoComplete="name" required /></label><label>Work email <input name="email" type="email" autoComplete="email" required /></label></div><label>Company or organisation <input name="company" autoComplete="organization" /></label><label>What needs to be connected? <textarea key={context} name="operation" rows={7} required defaultValue={context ? `${locale === 'it' ? 'Vorrei parlare di' : 'I would like to discuss'} ${context.toLowerCase()}.\n\n` : ''} placeholder="Teams, sites, vehicles, countries, control room, current challenges…" /></label><button type="submit" className="submit-button">Open email draft <span aria-hidden="true">↗</span></button>{opened && <p role="status" className="form-status">Your email app should open a draft. Review it there before sending.</p>}</form></div><aside className="contact-aside"><Eyebrow>Direct contact</Eyebrow><h2>Prefer to write directly?</h2><a href="mailto:info@dkpscommunications.com">info@dkpscommunications.com <span aria-hidden="true">↗</span></a><div><h3>Helpful context to include</h3><ul><li>Teams and departments</li><li>Sites, vehicles and routes</li><li>Countries of operation</li><li>Current radios or communication tools</li><li>Who needs dispatch or supervision</li></ul></div></aside></section>
-  </Localize>
+  return <OperationalBrief />
 }
 
 export function NotFoundPage() {
