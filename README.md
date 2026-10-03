@@ -1,5 +1,7 @@
 # DKPS Communications website
 
+[Visit the live website](https://dkps-communications.netlify.app/?lang=it).
+
 A bilingual corporate-site foundation for DKPS Communications, built with React, TypeScript, Vite and React Router. The content architecture follows the breadth of the [current DKPS site](https://dkpscommunications.com/) without reusing its visual design.
 
 ## Run
