@@ -1,6 +1,6 @@
 # DKPS Communications website
 
-A navigable corporate-site foundation for DKPS Communications, built with React, TypeScript, Vite and React Router. The content architecture follows the breadth of the [current DKPS site](https://dkpscommunications.com/) without reusing its visual design.
+A bilingual corporate-site foundation for DKPS Communications, built with React, TypeScript, Vite and React Router. The content architecture follows the breadth of the [current DKPS site](https://dkpscommunications.com/) without reusing its visual design.
 
 ## Run
 
@@ -10,6 +10,10 @@ npm run dev
 ```
 
 `npm run build` checks TypeScript and produces the production bundle. Routes use browser history; a deployed static host must serve `index.html` for unknown application paths.
+
+Italian and English are available from the header switch. The choice is saved in the browser and included in internal links as `?lang=it` or `?lang=en`, so individual pages can be shared in either language. The HTML language, page title and description update with the selected language.
+
+The homepage introduces the four system layers with a one-time path animation as they enter view. Hero and inner-page introductions use short entrance transitions. All of these respect `prefers-reduced-motion`; there is no continuous background animation.
 
 ## Site map
 
