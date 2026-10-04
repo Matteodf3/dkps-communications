@@ -45,6 +45,7 @@ export const italian: Record<string, string> = {
   'Applications': 'Applicazioni',
   'Plans & scope': 'Piani e ambito',
   'Company': 'Azienda',
+  'Explore': 'Esplora',
   'Privacy policy ↗': 'Informativa privacy ↗',
   'Communications designed for the way organisations work.': 'Comunicazioni progettate attorno al lavoro delle organizzazioni.',
   'Next step': 'Prossimo passo',

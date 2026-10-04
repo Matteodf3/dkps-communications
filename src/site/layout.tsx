@@ -20,7 +20,7 @@ const titles: Record<string, string> = {
   '/solutions': 'Operational solutions',
   '/plans': 'Plans & project scope',
   '/about': 'About DKPS',
-  '/contact': 'Build your system',
+  '/contact': 'Tell us about your operation',
 }
 
 function usePageNavigation() {
@@ -67,7 +67,7 @@ function Header() {
           <span aria-hidden="true">/</span>
           <button type="button" lang="it" aria-pressed={locale === 'it'} onClick={() => { setLocale('it'); setMenuOpen(false) }}>IT</button>
         </div>
-        <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'nav-contact nav-contact--active' : 'nav-contact'}>Build your system <span aria-hidden="true">↗</span></NavLink>
+        <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? 'nav-contact nav-contact--active' : 'nav-contact'}>Tell us about your operation <span aria-hidden="true">↗</span></NavLink>
         <a className="client-access" href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer" aria-label={locale === 'it' ? 'DKPS Connect, area clienti (si apre in una nuova scheda)' : 'DKPS Connect, client area (opens in a new tab)'}>DKPS Connect <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
@@ -82,9 +82,8 @@ function Footer() {
         <p>Professional Push-to-Talk communication systems designed around the operation.</p>
         <a href="mailto:info@dkpscommunications.com">info@dkpscommunications.com</a>
       </div>
-      <div className="footer-column"><h2>System</h2><Link to="/system">Architecture</Link><Link to="/devices">Radios & devices</Link><Link to="/connectivity">Connectivity</Link><Link to="/platform">Platform & dispatch</Link></div>
-      <div className="footer-column"><h2>Applications</h2><Link to="/industries">Industries</Link><Link to="/solutions">Solutions</Link><Link to="/plans">Plans & scope</Link></div>
-      <div className="footer-column"><h2>Company</h2><Link to="/about">About DKPS</Link><Link to="/contact">Contact</Link><a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">Privacy policy ↗</a><div className="footer-client-access"><span>For existing clients</span><a href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer">DKPS Connect ↗</a></div></div>
+      <div className="footer-column"><h2>Explore</h2><Link to="/solutions">Solutions</Link><Link to="/devices">Products</Link><Link to="/industries">Industries</Link><Link to="/about">About DKPS</Link></div>
+      <div className="footer-column"><h2>Contact</h2><Link to="/contact">Tell us about your operation</Link><a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">Privacy policy ↗</a><div className="footer-client-access"><span>For existing clients</span><a href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer">DKPS Connect ↗</a></div></div>
     </div>
     <div className="site-wrap footer-bottom"><span>© DKPS Communications</span><span>Communications designed for the way organisations work.</span></div>
   </footer></Localize>

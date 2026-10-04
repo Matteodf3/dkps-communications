@@ -32,6 +32,8 @@ const modes: Choice[] = [
   { key: 'unsure', en: 'I’m not sure yet', it: 'Non lo so ancora' },
 ]
 
+const sizeRanges = ['1–10', '11–50', '51–200', '200+'] as const
+
 const steps = [
   { en: 'Your environment', it: 'Il tuo settore' },
   { en: 'What to connect', it: 'Cosa collegare' },
@@ -49,6 +51,7 @@ export function OperationalBrief() {
   const [step, setStep] = useState(0)
   const [sectorKeys, setSectorKeys] = useState<string[]>([])
   const [connectionKeys, setConnectionKeys] = useState<string[]>([])
+  const [sizeRange, setSizeRange] = useState('')
   const [modeKeys, setModeKeys] = useState<string[]>([])
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
@@ -74,6 +77,7 @@ export function OperationalBrief() {
   const summary = [
     [tr('Environment', 'Settore'), picked(sectors, sectorKeys, locale)],
     [tr('To connect', 'Da collegare'), picked(connections, connectionKeys, locale)],
+    [tr('Users / devices', 'Utenti / dispositivi'), sizeRange ? [sizeRange] : []],
     [tr('Communication', 'Comunicazione'), picked(modes, modeKeys, locale)],
   ] as const
 
@@ -90,7 +94,7 @@ export function OperationalBrief() {
     // The local preview and the legacy preview host do not process Netlify Forms.
     if (/^(localhost|127\.0\.0\.1)$/.test(window.location.hostname) || window.location.hostname.endsWith('.chatgpt.site')) {
       const details = summary.map(([name, items]) => `${name}: ${items.join(', ') || '—'}`).join('\n')
-      const body = `${details}\n\n${tr('Name', 'Nome')}: ${data.get('name')}\n${tr('Company', 'Azienda')}: ${data.get('company')}\nEmail: ${data.get('email')}\n${tr('Phone', 'Telefono')}: ${data.get('phone') || '—'}\n${tr('Context', 'Contesto')}: ${context || '—'}`
+      const body = `${details}\n\n${tr('Name', 'Nome')}: ${data.get('name')}\n${tr('Company', 'Azienda')}: ${data.get('company')}\nEmail: ${data.get('email')}\n${tr('Phone', 'Telefono')}: ${data.get('phone') || '—'}\n${tr('Context', 'Contesto')}: ${context || '—'}${data.get('notes') ? `\n\n${tr('Additional details', 'Dettagli aggiuntivi')}: ${data.get('notes')}` : ''}`
       window.location.href = `mailto:info@dkpscommunications.com?subject=${encodeURIComponent('DKPS — operational brief')}&body=${encodeURIComponent(body)}`
       setSending(false)
       return
@@ -132,6 +136,7 @@ export function OperationalBrief() {
             <h2 ref={headingRef} tabIndex={-1}>{tr('What needs to stay connected?', 'Cosa deve restare collegato?')}</h2>
             <p className="brief-lead">{tr('Choose the parts of your organisation that need to talk to each other. The diagram shows the shape of your request.', 'Scegli le parti dell’organizzazione che devono comunicare. Lo schema mostra la forma della tua richiesta.')}</p>
             <div className="brief-choice-list">{connections.map((choice, index) => <button key={choice.key} type="button" aria-pressed={connectionKeys.includes(choice.key)} className={connectionKeys.includes(choice.key) ? 'brief-choice is-selected' : 'brief-choice'} onClick={() => toggle(choice.key, connectionKeys, setConnectionKeys)}><span>0{index + 1}</span><strong>{label(choice, locale)}</strong><b aria-hidden="true">{connectionKeys.includes(choice.key) ? '✓' : '+'}</b></button>)}</div>
+            <fieldset className="brief-size"><legend>{tr('Indicative number of users / devices', 'Numero indicativo di utenti / dispositivi')}</legend><div className="brief-choice-list">{sizeRanges.map((range, index) => <button key={range} type="button" aria-pressed={sizeRange === range} className={sizeRange === range ? 'brief-choice is-selected' : 'brief-choice'} onClick={() => setSizeRange(range)}><span>0{index + 1}</span><strong>{range}</strong><b aria-hidden="true">{sizeRange === range ? '✓' : '+'}</b></button>)}</div></fieldset>
           </>}
           {step === 2 && <>
             <h2 ref={headingRef} tabIndex={-1}>{tr('How should people communicate?', 'Come devono comunicare?')}</h2>
@@ -146,18 +151,20 @@ export function OperationalBrief() {
               <input type="hidden" name="form-name" value="dkps-operational-brief" />
               <input type="hidden" name="sector" value={picked(sectors, sectorKeys, 'en').join(', ')} />
               <input type="hidden" name="scope" value={picked(connections, connectionKeys, 'en').join(', ')} />
+              <input type="hidden" name="users-devices" value={sizeRange} />
               <input type="hidden" name="communication" value={picked(modes, modeKeys, 'en').join(', ')} />
               <input type="hidden" name="context" value={context} />
               <input type="hidden" name="language" value={locale} />
               <p className="brief-honeypot" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabIndex={-1} autoComplete="off" /></label></p>
               <div className="field-pair"><label>{tr('Full name', 'Nome e cognome')} <input name="name" autoComplete="name" required /></label><label>{tr('Company or organisation', 'Azienda o organizzazione')} <input name="company" autoComplete="organization" required /></label></div>
               <div className="field-pair"><label>{tr('Work email', 'Email aziendale')} <input name="email" type="email" autoComplete="email" required /></label><label>{tr('Phone (optional)', 'Telefono (facoltativo)')} <input name="phone" type="tel" autoComplete="tel" /></label></div>
+              <label>{tr('Is there anything else you would like to add?', 'C’è qualcosa che vuoi aggiungere?')} <textarea name="notes" rows={4} /></label>
               <label className="brief-consent"><input name="privacy-consent" type="checkbox" value="yes" required /><span>{tr('I have read the', 'Ho letto la')} <a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">{tr('privacy policy', 'informativa privacy')}</a>.</span></label>
               <button className="submit-button" type="submit" disabled={sending}>{sending ? tr('Sending…', 'Invio in corso…') : tr('Send your brief to DKPS', 'Invia il brief a DKPS')} <span aria-hidden="true">↗</span></button>
               {error && <p className="brief-error" role="alert">{tr('The brief could not be sent. Please try again or email info@dkpscommunications.com directly.', 'Non siamo riusciti a inviare il brief. Riprova o scrivi direttamente a info@dkpscommunications.com.')}</p>}
             </form>
           </>}
-          {step < 3 && <div className="brief-controls"><button type="button" className="brief-back" disabled={step === 0} onClick={() => setStep(step - 1)}>← {tr('Back', 'Indietro')}</button><button type="button" className="submit-button" disabled={step === 0 ? sectorKeys.length === 0 : step === 1 ? connectionKeys.length === 0 : modeKeys.length === 0} onClick={() => setStep(step + 1)}>{tr('Continue', 'Continua')} <span aria-hidden="true">↗</span></button></div>}
+          {step < 3 && <div className="brief-controls"><button type="button" className="brief-back" disabled={step === 0} onClick={() => setStep(step - 1)}>← {tr('Back', 'Indietro')}</button><button type="button" className="submit-button" disabled={step === 0 ? sectorKeys.length === 0 : step === 1 ? connectionKeys.length === 0 || !sizeRange : modeKeys.length === 0} onClick={() => setStep(step + 1)}>{tr('Continue', 'Continua')} <span aria-hidden="true">↗</span></button></div>}
           {step === 3 && <button type="button" className="brief-back brief-back--final" onClick={() => setStep(2)}>← {tr('Change your answers', 'Modifica le risposte')}</button>}
         </div>
         <aside className="brief-visual" aria-label={tr('Your communication map', 'La tua mappa di comunicazione')}>
