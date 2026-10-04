@@ -3,7 +3,7 @@ export const contact = 'mailto:info@dkpscommunications.com?subject=Communication
 export function PrototypeHeader() {
   return <header className="prototype-header">
     <div className="prototype-header-inner">
-      <a href="/" aria-label="DKPS Communications homepage"><img src="/images/dkps-logo.png" alt="DKPS Communications" width="160" height="63" /></a>
+      <a href="/" aria-label="DKPS Communications homepage"><img src="/brand/dkps-logo-on-dark.svg" alt="DKPS Communications" width="243" height="84" /></a>
       <nav aria-label="Preview navigation"><a href="/#system">The system</a><a href={contact}>Contact DKPS <span aria-hidden="true">↗</span></a></nav>
     </div>
   </header>
