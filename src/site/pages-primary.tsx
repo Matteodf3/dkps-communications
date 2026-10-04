@@ -43,7 +43,7 @@ export function HomePage() {
   return <Localize>
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-hero-photo">
-        <img src="/images/warehouse-real-30824313.jpeg" alt="Workers coordinating material and forklifts inside a warehouse" width="1600" height="900" fetchPriority="high" />
+        <img src="/images/dkps-operational-hero.png" alt="Illustrative scene of two field operators communicating by radio across mountain and logistics operations" width="1672" height="941" fetchPriority="high" />
         <span className="home-photo-label">Operational context / illustrative photograph</span>
         <div className="home-hero-copy">
           <Eyebrow>DKPS Communications / Professional Push-to-Talk</Eyebrow>
@@ -51,11 +51,6 @@ export function HomePage() {
           <p>DKPS brings professional radios, cellular connectivity, a PTT platform and dispatch into one communication system for teams, sites and vehicles.</p>
           <div className="hero-actions"><TextLink to="/system" light>Explore the system</TextLink><TextLink to="/contact" light>Tell us about your operation</TextLink></div>
         </div>
-      </div>
-      <div className="home-hero-equipment">
-        <div className="equipment-head"><span>FIELD EQUIPMENT / 01</span><span>DKPS SYSTEM</span></div>
-        <div className="equipment-radio"><RadioImage model="motorola" eager /></div>
-        <div className="equipment-foot"><span>Radio / manufacturer example</span><span>Devices selected to fit the operation.</span></div>
       </div>
       <div className="home-hero-chain" aria-label="Radio, connectivity, PTT platform and dispatch">
         <span>Radio</span><span>Connectivity</span><span>PTT platform</span><span>Dispatch</span>
