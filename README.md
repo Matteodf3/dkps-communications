@@ -24,7 +24,7 @@ The homepage introduces the four system layers with a one-time path animation as
 | `/` | Company and system overview |
 | `/system` | Four-part architecture and communication structure |
 | `/platform` | PTT platform, dispatch and available functions |
-| `/devices` | Professional radio showcase and device categories |
+| `/devices` | Four operational kits, followed by radio and accessory examples |
 | `/connectivity` | Cellular and international connectivity planning |
 | `/industries` | Operating environments |
 | `/solutions` | Multi-site, vehicle, international, dispatch and department problems |
@@ -40,6 +40,8 @@ The header and footer cover the main exploration paths. On mobile the menu is ke
 The current site was inspected on 29 September 2026. Its navigation and sections cover platform, architecture, features, industries, solutions, plans, coverage, about and contact. This implementation retains those topics and adds explicit device and connectivity pages because they are central parts of the DKPS system. It also includes mountain operations and field maintenance as potential applications from the project brief, without presenting them as customer deployments.
 
 The existing site makes specific claims about country coverage, deployment time, plan limits, reliability, encryption, pricing and past sector deployments. These are **not repeated as verified facts** here. Platform features are described as configuration-dependent. The named DKPS Connect, DKPS Connect + and DKPS Core levels come from the existing site; the new page presents them as scoping starting points, without fixed prices or technical entitlements.
+
+The Driver, Warehouse & Yard, Security and Mountain Operations kits are starting points supplied in the project brief, not fixed DKPS bundles or confirmed inventories. Each kit opens a short example configuration. DKPS would confirm hardware, accessory compatibility, connectivity, software and group permissions for the actual operation.
 
 The operational brief is submitted through Netlify Forms on the hosted site. A static form blueprint in `index.html` is required for Netlify's build-time detection; the React form posts the same field names. Local development and the older preview host open a reviewable `mailto:` draft because they do not process Netlify Forms. Submissions appear in the Netlify dashboard. The hosted project currently has an email notification for new form submissions to `info@dkpscommunications.com`; this setting lives in Netlify and is not tracked in this repository. The local `/privacy` page describes the current site's data flow and links the company's broader published policy. DKPS should review the legal text and company details before treating this prototype as a final statutory notice.
 

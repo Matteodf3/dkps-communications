@@ -14,7 +14,7 @@ const titles: Record<string, string> = {
   '/': 'Professional communication systems',
   '/system': 'The communication system',
   '/platform': 'PTT platform & dispatch',
-  '/devices': 'Professional radios & devices',
+  '/devices': 'Operational kits & equipment',
   '/connectivity': 'Cellular connectivity',
   '/industries': 'Industries',
   '/solutions': 'Operational solutions',

@@ -135,13 +135,73 @@ function EquipmentExhibit({ example, index }: { example: typeof radioExamples[nu
   </article></Localize>
 }
 
+const operationKits = [
+  {
+    id: 'driver-kit',
+    name: 'Driver Kit',
+    description: 'Keep drivers in touch with dispatch while their attention stays on the road.',
+    image: '/images/dispatch-operation.png',
+    alt: 'Illustrative fleet dispatch operation with vehicles outside a control point',
+    parts: ['Vehicle radio', 'Steering-wheel PTT control', 'Hands-free audio'],
+  },
+  {
+    id: 'warehouse-yard-kit',
+    name: 'Warehouse & Yard Kit',
+    description: 'Give warehouse and loading teams a direct voice path across indoor and outdoor work.',
+    image: '/images/warehouse-real-30824313.jpeg',
+    alt: 'Warehouse aisle with a forklift and operating staff',
+    parts: ['Rugged radio', 'Work headset', 'Warehouse and yard groups'],
+  },
+  {
+    id: 'security-kit',
+    name: 'Security Kit',
+    description: 'Connect patrols, supervisors and the control room with discreet communication and escalation.',
+    image: '/images/brief-security.jpeg',
+    alt: 'Illustrative security control room operation',
+    parts: ['Radio and discreet earpiece', 'SOS button', 'Optional bodycam, where compatible'],
+  },
+  {
+    id: 'mountain-operations-kit',
+    name: 'Mountain Operations Kit',
+    description: 'Bring piste vehicles and lift staff into a shared communication structure.',
+    image: '/images/dkps-operational-hero.png',
+    alt: 'Illustrative mountain operation with two people communicating by radio',
+    parts: ['Vehicle radios for snowcats and piste vehicles', 'Handheld radios for lift staff', 'Groups for vehicles, lifts and coordination'],
+  },
+] as const
+
+function OperationKit({ kit, index }: { kit: typeof operationKits[number]; index: number }) {
+  const { locale, t } = useLocale()
+  return <Localize><article className="operation-kit" id={kit.id}>
+    <div className={`operation-kit-image operation-kit-image--${kit.id}`}>
+      <img src={kit.image} alt={kit.alt} loading="lazy" />
+      <span>{locale === 'it' ? 'APPLICAZIONE' : 'APPLICATION'} / 0{index + 1}</span>
+    </div>
+    <div className="operation-kit-body">
+      <h3>{kit.name}</h3>
+      <p>{kit.description}</p>
+      <details className="operation-kit-details">
+        <summary>View solution <span aria-hidden="true">↗</span></summary>
+        <div className="operation-kit-expanded">
+          <p>Typical configuration to discuss with DKPS:</p>
+          <ul>{kit.parts.map(part => <li key={part}>{part}</li>)}</ul>
+          <Link to={`/contact?context=${encodeURIComponent(t(kit.name))}`}>Talk to DKPS about this kit <span aria-hidden="true">↗</span></Link>
+        </div>
+      </details>
+    </div>
+  </article></Localize>
+}
+
 export function DevicesPage() {
   return <Localize>
-    <PageIntro index="03" eyebrow="Radios & devices" title="Choose equipment for the people using it." lead="A radio should suit the environment, the role and the communication path. DKPS considers devices as part of the system design, not as a separate purchase." ><TextLink to="/system">Where devices fit in the system</TextLink></PageIntro>
-    <section className="equipment-gallery" aria-label="Professional radio examples"><div className="site-wrap equipment-gallery-inner"><div className="equipment-gallery-top"><div><Eyebrow>Equipment / manufacturer examples</Eyebrow><h2>Made for a working shift.</h2></div><p>Examples from professional PoC radio ranges. Models, compatibility and availability are confirmed for each system; these photographs illustrate the type of equipment.</p></div><div className="equipment-exhibits">{radioExamples.map((example, index) => <EquipmentExhibit key={example.name} example={example} index={index} />)}</div><div className="equipment-gallery-end"><p>Radios are one part of the DKPS system: connectivity, PTT platform, user groups and dispatch complete the communication path.</p><TextLink to="/contact" light>Find equipment for your operation</TextLink></div></div></section>
-    <section className="section site-wrap"><SectionHeading index="01 / Equipment" title="Physical tools for different types of work." /><div className="device-types"><div><span>01</span><h3>Dedicated PoC radios</h3><p>Physical Push-to-Talk controls for teams that need a purpose-built communication device.</p></div><div><span>02</span><h3>Smartphones & tablets</h3><p>Compatible apps can bring a mobile device into the communication system where the role allows it.</p></div><div><span>03</span><h3>Vehicle & fixed positions</h3><p>Vehicle-mounted and desk-based options can connect moving crews and control points to the same structure.</p></div></div></section>
-    <section className="section site-wrap"><SectionHeading index="02 / Selection" title="The device decision follows the work." /><div className="criteria-list"><div><h3>Environment</h3><p>Where will it be carried and used: inside, outdoors, in vehicles or across facilities?</p></div><div><h3>Role</h3><p>Who needs instant voice, who needs a screen, and who needs to reach more than one group?</p></div><div><h3>Connectivity</h3><p>What cellular conditions and countries matter for the operation?</p></div><div><h3>Management</h3><p>How will devices and users be provisioned, updated and supported?</p></div></div></section>
-    <ContactCta title="Select the equipment with the system, not before it." />
+    <PageIntro index="03" eyebrow="Products & equipment" title="Solutions for your operation." lead="Choose the work you need to connect. DKPS defines the hardware, cellular connectivity, PTT software, groups and communication permissions around it." ><TextLink to="/contact">Tell us about your operation</TextLink></PageIntro>
+    <section className="operation-kits section site-wrap" aria-label="Solutions for your operation">
+      <SectionHeading index="01 / Operational kits" title="Start with the job. Build the system around it." text="These are starting configurations, not fixed bundles. Devices and accessories are selected for the environment, network and roles in your organisation." />
+      <div className="operation-kit-grid">{operationKits.map((kit, index) => <OperationKit key={kit.id} kit={kit} index={index} />)}</div>
+      <p className="operation-kit-note">Images illustrate operating contexts, not DKPS customer deployments.</p>
+    </section>
+    <section className="equipment-gallery" aria-label="Equipment examples"><div className="site-wrap equipment-gallery-inner"><div className="equipment-gallery-top"><div><Eyebrow>02 / Equipment</Eyebrow><h2>Equipment selected for the system.</h2></div><p>Professional radios and compatible accessories sit beneath the solution. Models, availability and platform compatibility are confirmed for each project.</p></div><div className="equipment-exhibits">{radioExamples.map((example, index) => <EquipmentExhibit key={example.name} example={example} index={index} />)}</div><div className="equipment-accessories"><span>Accessory categories</span><ul><li>Headsets &amp; earpieces</li><li>Vehicle PTT controls</li><li>Hands-free audio</li><li>Optional bodycams</li></ul></div><div className="equipment-gallery-end"><p>DKPS connects the selected equipment to connectivity, the PTT platform, user groups and dispatch.</p><TextLink to="/contact" light>Discuss your configuration</TextLink></div></div></section>
+    <ContactCta title="Start with your operation. We will define the system." />
   </Localize>
 }
 
