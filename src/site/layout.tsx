@@ -21,6 +21,7 @@ const titles: Record<string, string> = {
   '/plans': 'Plans & project scope',
   '/about': 'About DKPS',
   '/contact': 'Tell us about your operation',
+  '/privacy': 'Privacy information',
 }
 
 function usePageNavigation() {
@@ -80,12 +81,13 @@ function Footer() {
       <div className="footer-brand">
         <Link to="/" aria-label="DKPS Communications — home"><img src="/brand/dkps-logo-on-dark.svg" alt="DKPS Communications" width="243" height="84" /></Link>
         <p>Professional Push-to-Talk communication systems designed around the operation.</p>
-        <a href="mailto:info@dkpscommunications.com">info@dkpscommunications.com</a>
+        <a className="footer-email" href="mailto:info@dkpscommunications.com">info@dkpscommunications.com</a>
+        <p className="footer-company">Dukapis &amp; Co. s.r.l.s.<br />VAT / P.IVA 13205921003<br />Operational presence: Rome, Italy</p>
       </div>
       <div className="footer-column"><h2>Explore</h2><Link to="/solutions">Solutions</Link><Link to="/devices">Products</Link><Link to="/industries">Industries</Link><Link to="/about">About DKPS</Link></div>
-      <div className="footer-column"><h2>Contact</h2><Link to="/contact">Tell us about your operation</Link><a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">Privacy policy ↗</a><div className="footer-client-access"><span>For existing clients</span><a href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer">DKPS Connect ↗</a></div></div>
+      <div className="footer-column"><h2>Contact</h2><Link to="/contact">Tell us about your operation</Link><Link to="/privacy">Privacy information</Link><div className="footer-client-access"><span>For existing clients</span><a href="https://dkpsconnect.com" target="_blank" rel="noopener noreferrer">DKPS Connect ↗</a></div></div>
     </div>
-    <div className="site-wrap footer-bottom"><span>© DKPS Communications</span><span>Communications designed for the way organisations work.</span></div>
+    <div className="site-wrap footer-bottom"><span>© 2026 Dukapis &amp; Co. s.r.l.s. · DKPS Communications</span><span>Communications designed for the way organisations work.</span></div>
   </footer></Localize>
 }
 

@@ -15,8 +15,8 @@ export function IndustriesPage() {
 export function SolutionsPage() {
   const { t } = useLocale()
   return <Localize>
-    <PageIntro index="06" eyebrow="Operational solutions" title="Start with the shape of the operation." lead="A single site, a network of facilities or a travelling workforce calls for different communication paths. DKPS configures the elements around that structure." ><TextLink to="/system">See the system architecture</TextLink></PageIntro>
-    <section className="section site-wrap"><SectionHeading index="01 / Operating patterns" title="Five ways to frame the requirement." /><div className="solution-list">{solutions.map((solution, index) => <article className="solution-row" id={solution.slug} key={solution.slug}><div className="solution-head"><span>{String(index + 1).padStart(2, '0')}</span><h3>{solution.name}</h3><strong>{solution.lead}</strong></div><div className="solution-detail"><p>{solution.text}</p><ul>{solution.elements.map(element => <li key={element}>{element}</li>)}</ul><Link to={`/contact?context=${encodeURIComponent(t(solution.name))}`}>Discuss this operation <span aria-hidden="true">↗</span></Link></div></article>)}</div></section>
+    <PageIntro index="06" eyebrow="Operational solutions" title="Solve the communication gaps in your operation." lead="Sites that cannot reach one another. Drivers out on routes. Departments sharing the wrong channel. Start with the problem; DKPS can design the devices, connectivity and PTT structure around it." ><TextLink to="/system">See the system architecture</TextLink></PageIntro>
+    <section className="section site-wrap"><SectionHeading index="01 / Operating requirements" title="Where does communication break down?" /><div className="solution-list">{solutions.map((solution, index) => <article className="solution-row" id={solution.slug} key={solution.slug}><div className="solution-head"><span>{String(index + 1).padStart(2, '0')}</span><h3>{solution.name}</h3><strong>{solution.lead}</strong></div><div className="solution-detail"><p>{solution.text}</p><ul>{solution.elements.map(element => <li key={element}>{element}</li>)}</ul><Link to={`/contact?context=${encodeURIComponent(t(solution.name))}`}>Talk to DKPS about this need <span aria-hidden="true">↗</span></Link></div></article>)}</div></section>
     <ContactCta title="Describe your operation. We will map the communication." />
   </Localize>
 }
@@ -42,6 +42,24 @@ export function AboutPage() {
 
 export function ContactPage() {
   return <OperationalBrief />
+}
+
+export function PrivacyPage() {
+  return <Localize>
+    <PageIntro index="09" eyebrow="Privacy" title="How this website handles your details." lead="This page explains what happens when you send an operational brief through the DKPS Communications website." />
+    <section className="section site-wrap privacy-content">
+      <h2>Who to contact</h2>
+      <p>DKPS Communications is operated by Dukapis &amp; Co. s.r.l.s., VAT / P.IVA 13205921003. For questions about personal data, write to <a href="mailto:privacy@dkpscommunications.com">privacy@dkpscommunications.com</a>.</p>
+      <h2>Information you provide</h2>
+      <p>The guided brief asks for your name, organisation, work email and, optionally, phone number and notes. It also records the operational choices you select, such as sector, people or devices, locations and communication needs.</p>
+      <h2>How the brief is handled</h2>
+      <p>The information is used to respond to your request and discuss a possible communication system. The form is processed through Netlify Forms, the hosting service used by this website. Please do not include sensitive personal information in the optional notes.</p>
+      <h2>Language preference</h2>
+      <p>Your language choice is stored in your browser so the site can remember whether you prefer English or Italian. This site does not include its own analytics or advertising tracking scripts.</p>
+      <h2>Your questions and rights</h2>
+      <p>To ask about access, correction or deletion of information sent through the brief, contact <a href="mailto:privacy@dkpscommunications.com">privacy@dkpscommunications.com</a>. <a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noopener noreferrer">The DKPS privacy policy ↗</a> provides the company’s broader privacy information.</p>
+    </section>
+  </Localize>
 }
 
 export function NotFoundPage() {

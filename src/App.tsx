@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router'
 import { SiteLayout } from './site/layout'
 import { ConnectivityPage, DevicesPage, HomePage, PlatformPage, SystemPage } from './site/pages-primary'
-import { AboutPage, ContactPage, IndustriesPage, NotFoundPage, PlansPage, SolutionsPage } from './site/pages-secondary'
+import { AboutPage, ContactPage, IndustriesPage, NotFoundPage, PlansPage, PrivacyPage, SolutionsPage } from './site/pages-secondary'
 
 export default function App() {
   return <Routes>
@@ -16,6 +16,7 @@ export default function App() {
       <Route path="plans" element={<PlansPage />} />
       <Route path="about" element={<AboutPage />} />
       <Route path="contact" element={<ContactPage />} />
+      <Route path="privacy" element={<PrivacyPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   </Routes>

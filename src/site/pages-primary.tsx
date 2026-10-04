@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { Link, Localize } from './i18n'
+import { Link, Localize, useLocale } from './i18n'
 import { industries, platformFeatures, systemLayers } from './content'
 import { ContactCta, Eyebrow, PageIntro, RadioImage, SectionHeading, TextLink } from './layout'
 
@@ -43,7 +43,10 @@ export function HomePage() {
   return <Localize>
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-hero-photo">
-        <img src="/images/dkps-operational-hero.png" alt="Illustrative scene of two field operators communicating by radio across mountain and logistics operations" width="1672" height="941" fetchPriority="high" />
+        <picture>
+          <source media="(max-width: 800px)" srcSet="/images/dkps-operational-hero-mobile.png" />
+          <img src="/images/dkps-operational-hero.png" alt="Illustrative scene of two field operators communicating by radio across mountain and logistics operations" width="1672" height="941" fetchPriority="high" />
+        </picture>
         <span className="home-photo-label">Operational context / illustrative photograph</span>
         <div className="home-hero-copy">
           <Eyebrow>DKPS Communications / Professional Push-to-Talk</Eyebrow>
@@ -92,10 +95,50 @@ export function PlatformPage() {
   </Localize>
 }
 
+const radioExamples = [
+  {
+    model: 'motorola' as const,
+    maker: 'Motorola Solutions',
+    name: 'TLK 110',
+    description: 'Dedicated broadband Push-to-Talk radio for mobile teams.',
+    features: ['4G LTE and Wi-Fi', 'IP67 protection', 'Integrated GPS positioning', 'Dedicated emergency button'],
+    ideal: 'Field teams, logistics and site operations that need a dedicated voice device.',
+    source: 'https://www.motorolasolutions.com/en_xu/products/broadband-push-to-talk/wave-ptx/tlk110-radio/tlk110.html',
+  },
+  {
+    model: 'hytera' as const,
+    maker: 'Hytera',
+    name: 'PNC360S',
+    description: 'Compact Push-to-Talk over Cellular radio for everyday operations.',
+    features: ['Cellular PoC communication', '3 W speaker', 'IP67 protection', '4000 mAh battery'],
+    ideal: 'Hospitality, facilities and security teams that need a compact radio.',
+    source: 'https://www.hytera.com/en/product-new/lte-broadband/poc-radio/pnc360s.html',
+  },
+]
+
+function EquipmentExhibit({ example, index }: { example: typeof radioExamples[number]; index: number }) {
+  const { locale } = useLocale()
+  return <Localize><article className={`equipment-exhibit equipment-exhibit--${example.model}`}>
+    <div className="equipment-exhibit-visual">
+      <span className="equipment-exhibit-label">{locale === 'it' ? 'DISPOSITIVO SUL CAMPO' : 'FIELD EQUIPMENT'} / 0{index + 1}</span>
+      <RadioImage model={example.model} />
+      <span className="equipment-exhibit-measure" aria-hidden="true">{locale === 'it' ? 'PUSH TO TALK / CELLULARE' : 'PUSH TO TALK / CELLULAR'}</span>
+    </div>
+    <div className="equipment-exhibit-spec">
+      <div className="equipment-exhibit-title"><span>{example.maker}</span><h3>{example.name}</h3></div>
+      <p>{example.description}</p>
+      <ul>{example.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
+      <p className="equipment-ideal"><strong>Ideal for</strong> {example.ideal}</p>
+      <Link to={`/contact?context=${encodeURIComponent(example.name)}`}>Talk to DKPS about configuration <span aria-hidden="true">↗</span></Link>
+      <a className="equipment-source" href={example.source} target="_blank" rel="noopener noreferrer">Manufacturer specifications ↗</a>
+    </div>
+  </article></Localize>
+}
+
 export function DevicesPage() {
   return <Localize>
     <PageIntro index="03" eyebrow="Radios & devices" title="Choose equipment for the people using it." lead="A radio should suit the environment, the role and the communication path. DKPS considers devices as part of the system design, not as a separate purchase." ><TextLink to="/system">Where devices fit in the system</TextLink></PageIntro>
-    <section className="equipment-gallery" aria-label="Professional radio examples"><div className="site-wrap equipment-gallery-inner"><div className="equipment-gallery-top"><div><Eyebrow>Equipment / manufacturer examples</Eyebrow><h2>Made for a working shift.</h2></div><p>Examples from professional PoC radio ranges. Models, compatibility and availability are confirmed for each system; these photographs illustrate the type of equipment.</p></div><div className="equipment-exhibits"><figure className="equipment-exhibit equipment-exhibit--motorola"><div className="equipment-exhibit-visual"><span className="equipment-exhibit-label">FIELD EQUIPMENT / 01</span><RadioImage model="motorola" /><span className="equipment-exhibit-measure" aria-hidden="true">PUSH TO TALK / CELLULAR</span></div><figcaption><div><span>Motorola Solutions</span><strong>TLK 110</strong></div><p>Dedicated Push-to-Talk radio example for teams that work away from a desk.</p></figcaption></figure><figure className="equipment-exhibit equipment-exhibit--hytera"><div className="equipment-exhibit-visual"><span className="equipment-exhibit-label">FIELD EQUIPMENT / 02</span><RadioImage model="hytera" /><span className="equipment-exhibit-measure" aria-hidden="true">PoC / PROFESSIONAL RADIO</span></div><figcaption><div><span>Hytera</span><strong>PNC360S</strong></div><p>Compact PoC radio example for work that needs simple, immediate voice communication.</p></figcaption></figure></div><div className="equipment-gallery-end"><p>Radios are one part of the DKPS system: connectivity, PTT platform, user groups and dispatch complete the communication path.</p><TextLink to="/contact" light>Find equipment for your operation</TextLink></div></div></section>
+    <section className="equipment-gallery" aria-label="Professional radio examples"><div className="site-wrap equipment-gallery-inner"><div className="equipment-gallery-top"><div><Eyebrow>Equipment / manufacturer examples</Eyebrow><h2>Made for a working shift.</h2></div><p>Examples from professional PoC radio ranges. Models, compatibility and availability are confirmed for each system; these photographs illustrate the type of equipment.</p></div><div className="equipment-exhibits">{radioExamples.map((example, index) => <EquipmentExhibit key={example.name} example={example} index={index} />)}</div><div className="equipment-gallery-end"><p>Radios are one part of the DKPS system: connectivity, PTT platform, user groups and dispatch complete the communication path.</p><TextLink to="/contact" light>Find equipment for your operation</TextLink></div></div></section>
     <section className="section site-wrap"><SectionHeading index="01 / Equipment" title="Physical tools for different types of work." /><div className="device-types"><div><span>01</span><h3>Dedicated PoC radios</h3><p>Physical Push-to-Talk controls for teams that need a purpose-built communication device.</p></div><div><span>02</span><h3>Smartphones & tablets</h3><p>Compatible apps can bring a mobile device into the communication system where the role allows it.</p></div><div><span>03</span><h3>Vehicle & fixed positions</h3><p>Vehicle-mounted and desk-based options can connect moving crews and control points to the same structure.</p></div></div></section>
     <section className="section site-wrap"><SectionHeading index="02 / Selection" title="The device decision follows the work." /><div className="criteria-list"><div><h3>Environment</h3><p>Where will it be carried and used: inside, outdoors, in vehicles or across facilities?</p></div><div><h3>Role</h3><p>Who needs instant voice, who needs a screen, and who needs to reach more than one group?</p></div><div><h3>Connectivity</h3><p>What cellular conditions and countries matter for the operation?</p></div><div><h3>Management</h3><p>How will devices and users be provisioned, updated and supported?</p></div></div></section>
     <ContactCta title="Select the equipment with the system, not before it." />

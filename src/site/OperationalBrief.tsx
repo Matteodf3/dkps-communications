@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useLocation } from 'react-router'
-import { useLocale } from './i18n'
+import { Link, useLocale } from './i18n'
 
 type Choice = { key: string; en: string; it: string; image?: string }
 
@@ -159,7 +159,7 @@ export function OperationalBrief() {
               <div className="field-pair"><label>{tr('Full name', 'Nome e cognome')} <input name="name" autoComplete="name" required /></label><label>{tr('Company or organisation', 'Azienda o organizzazione')} <input name="company" autoComplete="organization" required /></label></div>
               <div className="field-pair"><label>{tr('Work email', 'Email aziendale')} <input name="email" type="email" autoComplete="email" required /></label><label>{tr('Phone (optional)', 'Telefono (facoltativo)')} <input name="phone" type="tel" autoComplete="tel" /></label></div>
               <label>{tr('Is there anything else you would like to add?', 'C’è qualcosa che vuoi aggiungere?')} <textarea name="notes" rows={4} /></label>
-              <label className="brief-consent"><input name="privacy-consent" type="checkbox" value="yes" required /><span>{tr('I have read the', 'Ho letto la')} <a href="https://dkps-connect.sintra.site/gdpr" target="_blank" rel="noreferrer">{tr('privacy policy', 'informativa privacy')}</a>.</span></label>
+              <label className="brief-consent"><input name="privacy-consent" type="checkbox" value="yes" required /><span>{tr('I have read the', 'Ho letto la')} <Link to="/privacy">{tr('privacy information', 'informativa privacy')}</Link>.</span></label>
               <button className="submit-button" type="submit" disabled={sending}>{sending ? tr('Sending…', 'Invio in corso…') : tr('Send your brief to DKPS', 'Invia il brief a DKPS')} <span aria-hidden="true">↗</span></button>
               {error && <p className="brief-error" role="alert">{tr('The brief could not be sent. Please try again or email info@dkpscommunications.com directly.', 'Non siamo riusciti a inviare il brief. Riprova o scrivi direttamente a info@dkpscommunications.com.')}</p>}
             </form>
