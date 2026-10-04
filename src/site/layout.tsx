@@ -4,7 +4,6 @@ import { Outlet, useLocation } from 'react-router'
 import { Link, Localize, NavLink, useLocale } from './i18n'
 
 const primary = [
-  ['Home', '/'],
   ['Solutions', '/solutions'],
   ['Products', '/devices'],
   ['Industries', '/industries'],

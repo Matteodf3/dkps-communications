@@ -42,7 +42,7 @@ The existing site makes specific claims about country coverage, deployment time,
 
 The operational brief is submitted through Netlify Forms on the hosted site. A static form blueprint in `index.html` is required for Netlify's build-time detection; the React form posts the same field names. Local development and the older preview host open a reviewable `mailto:` draft because they do not process Netlify Forms. Submissions appear in the Netlify dashboard. The hosted project currently has an email notification for new form submissions to `info@dkpscommunications.com`; this setting lives in Netlify and is not tracked in this repository. The footer links to the current DKPS privacy policy until a reviewed policy is provided for this site.
 
-The primary navigation is Home, Solutions, Products, Industries, About and the brief CTA. Deep pages for system architecture, platform, connectivity and project scope remain available through contextual links and the footer. DKPS Connect links to the external client area at `https://dkpsconnect.com` in the header and footer; it is separate from enquiries.
+The primary navigation is Solutions, Products, Industries, About and the brief CTA. The logo links to the homepage. Deep pages for system architecture, platform, connectivity and project scope remain available through contextual links and the footer. DKPS Connect links to the external client area at `https://dkpsconnect.com` in the header and footer; it is separate from enquiries.
 
 ## Images
 
