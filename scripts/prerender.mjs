@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { renderPage } from '../dist-ssr/entry-server.js'
 
 const site = 'https://dkps-communications.netlify.app'
+const descriptions = JSON.parse(await readFile('src/site/seo-descriptions.json', 'utf8'))
 const routes = [
   ['/', 'Professional Push-to-Talk communication systems', 'Sistemi di comunicazione Push-to-Talk professionali'],
   ['/system', 'A communication system built around your operation', 'Un sistema di comunicazione costruito attorno alla tua operatività'],
@@ -21,10 +22,6 @@ const routes = [
   ['/privacy', 'Privacy information', 'Informativa privacy'],
 ]
 
-const descriptions = {
-  en: 'DKPS Communications designs professional Push-to-Talk systems connecting radios, cellular connectivity, a PTT platform and dispatch around your operation.',
-  it: 'DKPS Communications progetta sistemi Push-to-Talk professionali con radio, connettività cellulare, piattaforma PTT e dispatch attorno alla tua operatività.',
-}
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 const template = await readFile('dist/index.html', 'utf8')
 
@@ -38,6 +35,8 @@ function htmlFor(route, locale, title, canonical = true) {
   if (!content.includes('<main')) throw new Error(`Missing page content: ${path}`)
   const fullTitle = `${title} | DKPS Communications`
   const url = pageUrl(locale, route)
+  const description = descriptions[route]?.[locale]
+  if (!description) throw new Error(`Missing ${locale} description for ${route}`)
   const head = [
     `<link rel="canonical" href="${url}" />`,
     `<link rel="alternate" hreflang="it" href="${pageUrl('it', route)}" />`,
@@ -46,14 +45,14 @@ function htmlFor(route, locale, title, canonical = true) {
     '<meta property="og:type" content="website" />',
     `<meta property="og:locale" content="${locale === 'it' ? 'it_IT' : 'en_US'}" />`,
     `<meta property="og:title" content="${escape(fullTitle)}" />`,
-    `<meta property="og:description" content="${escape(descriptions[locale])}" />`,
+    `<meta property="og:description" content="${escape(description)}" />`,
     `<meta property="og:url" content="${url}" />`,
     `<meta property="og:image" content="${site}/images/dkps-operational-hero.png" />`,
     '<meta name="twitter:card" content="summary_large_image" />',
   ].join('\n    ')
   return template
     .replace('<html lang="en">', `<html lang="${locale}">`)
-    .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escape(descriptions[locale])}" />\n    ${head}`)
+    .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escape(description)}" />\n    ${head}`)
     .replace(/<title>[^<]*<\/title>/, `<title>${escape(fullTitle)}</title>`)
     .replace('<div id="root"></div>', `<div id="root" data-locale="${locale}">${content}</div>`)
 }

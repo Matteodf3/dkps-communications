@@ -1,0 +1,62 @@
+{
+  "/": {
+    "en": "DKPS designs professional Push-to-Talk communication systems connecting radios, cellular networks, a PTT platform and dispatch for teams, sites and vehicles.",
+    "it": "DKPS progetta sistemi Push-to-Talk professionali che collegano radio, rete cellulare, piattaforma PTT e dispatch per team, sedi e veicoli."
+  },
+  "/system": {
+    "en": "Explore how DKPS combines devices, cellular connectivity, PTT software, groups and dispatch into a communication system built around an operation.",
+    "it": "Scopri come DKPS unisce dispositivi, connettività cellulare, software PTT, gruppi e dispatch in un sistema costruito attorno all’operatività."
+  },
+  "/platform": {
+    "en": "See how a PTT platform can organise communication groups, user roles and dispatch access for field teams and control rooms.",
+    "it": "Scopri come una piattaforma PTT organizza gruppi di comunicazione, ruoli degli utenti e accesso al dispatch per team e sale controllo."
+  },
+  "/devices": {
+    "en": "Explore professional radios, body cameras and accessories for logistics, warehouses, security and mountain operations. DKPS selects equipment around the system.",
+    "it": "Esplora radio professionali, bodycam e accessori per logistica, magazzini, sicurezza e operazioni in montagna. DKPS sceglie i dispositivi per il sistema."
+  },
+  "/devices/logistics": {
+    "en": "Explore radios and accessories to consider for drivers, vehicles, depots and transport dispatch within a professional communication system.",
+    "it": "Esplora radio e accessori da valutare per autisti, veicoli, depositi e dispatch dei trasporti in un sistema di comunicazione professionale."
+  },
+  "/devices/warehousing": {
+    "en": "Explore portable radios, headsets and accessories to consider for warehouse, loading and yard teams.",
+    "it": "Esplora radio portatili, cuffie e accessori da valutare per team di magazzino, carico e piazzale."
+  },
+  "/devices/security": {
+    "en": "Explore radios, discreet audio, body cameras and accessories to consider for patrols, supervisors and security control rooms.",
+    "it": "Esplora radio, audio discreto, bodycam e accessori da valutare per pattuglie, responsabili e sale controllo della sicurezza."
+  },
+  "/devices/mountain": {
+    "en": "Explore vehicle radios, handheld devices, body cameras and audio accessories to consider for ski lifts, snowcats and mountain response teams.",
+    "it": "Esplora radio veicolari e portatili, bodycam e accessori audio da valutare per impianti, gatti delle nevi e squadre in montagna."
+  },
+  "/connectivity": {
+    "en": "Learn how cellular connectivity links radios and mobile teams across sites and vehicles within a DKPS Push-to-Talk system.",
+    "it": "Scopri come la connettività cellulare collega radio e team mobili tra sedi e veicoli in un sistema Push-to-Talk DKPS."
+  },
+  "/industries": {
+    "en": "Communication requirements for logistics, hospitality, manufacturing, security and other operations with teams, sites and vehicles to coordinate.",
+    "it": "Esigenze di comunicazione per logistica, hospitality, industria, sicurezza e altre attività che coordinano team, sedi e veicoli."
+  },
+  "/solutions": {
+    "en": "Explore operational communication needs: connecting multiple sites, coordinating vehicles, supporting international teams and centralising dispatch.",
+    "it": "Esplora le esigenze di comunicazione operativa: collegare più sedi, coordinare veicoli, supportare team internazionali e centralizzare il dispatch."
+  },
+  "/plans": {
+    "en": "Understand the factors DKPS considers when planning devices, connectivity, PTT groups, permissions and support for an organisation.",
+    "it": "Scopri gli elementi che DKPS valuta nel progettare dispositivi, connettività, gruppi PTT, permessi e assistenza per un’organizzazione."
+  },
+  "/about": {
+    "en": "Learn about DKPS Communications and its approach to designing professional Push-to-Talk systems around real operational requirements.",
+    "it": "Conosci DKPS Communications e il suo approccio alla progettazione di sistemi Push-to-Talk professionali basati sulle esigenze operative."
+  },
+  "/contact": {
+    "en": "Tell DKPS how your teams, sites and vehicles work through a guided operational brief, then discuss a suitable communication system.",
+    "it": "Racconta a DKPS come lavorano team, sedi e veicoli con un brief operativo guidato e valuta insieme il sistema di comunicazione adatto."
+  },
+  "/privacy": {
+    "en": "Read how DKPS Communications handles personal data submitted through the website and its operational contact brief.",
+    "it": "Leggi come DKPS Communications tratta i dati personali inviati tramite il sito e il brief operativo di contatto."
+  }
+}

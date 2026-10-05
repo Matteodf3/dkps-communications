@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, ReactNode } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { Link, Localize, NavLink, useLocale } from './i18n'
+import descriptions from './seo-descriptions.json'
 
 const primary = [
   ['Solutions', '/solutions'],
@@ -34,9 +35,9 @@ function usePageNavigation() {
   useEffect(() => {
     const pagePath = location.pathname.replace(/\/$/, '') || '/'
     document.title = `${t(titles[pagePath] ?? 'Page not found')} | DKPS Communications`
-    document.querySelector('meta[name="description"]')?.setAttribute('content', locale === 'it'
-      ? 'DKPS Communications progetta sistemi Push-to-Talk professionali con radio, connettività cellulare, piattaforma PTT e dispatch attorno alla tua operatività.'
-      : 'DKPS Communications designs professional Push-to-Talk systems connecting radios, cellular connectivity, a PTT platform and dispatch around your operation.')
+    const pageDescription = descriptions[pagePath as keyof typeof descriptions]?.[locale] ?? descriptions['/'][locale]
+    document.querySelector('meta[name="description"]')?.setAttribute('content', pageDescription)
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', pageDescription)
     if (location.hash) {
       const id = decodeURIComponent(location.hash.slice(1))
       requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView())
