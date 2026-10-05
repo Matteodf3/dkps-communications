@@ -32,7 +32,8 @@ function usePageNavigation() {
   const location = useLocation()
   const { locale, t } = useLocale()
   useEffect(() => {
-    document.title = `${t(titles[location.pathname] ?? 'Page not found')} | DKPS Communications`
+    const pagePath = location.pathname.replace(/\/$/, '') || '/'
+    document.title = `${t(titles[pagePath] ?? 'Page not found')} | DKPS Communications`
     document.querySelector('meta[name="description"]')?.setAttribute('content', locale === 'it'
       ? 'DKPS Communications progetta sistemi Push-to-Talk professionali con radio, connettività cellulare, piattaforma PTT e dispatch attorno alla tua operatività.'
       : 'DKPS Communications designs professional Push-to-Talk systems connecting radios, cellular connectivity, a PTT platform and dispatch around your operation.')

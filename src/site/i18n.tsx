@@ -1,6 +1,6 @@
 import { Children, cloneElement, createContext, isValidElement, useContext, useEffect, useState } from 'react'
 import type { ComponentProps, ReactElement, ReactNode } from 'react'
-import { Link as RouterLink, NavLink as RouterNavLink, useLocation, useNavigate } from 'react-router'
+import { Link as RouterLink, NavLink as RouterNavLink, useLocation } from 'react-router'
 import { italian } from './italian'
 
 export type Locale = 'en' | 'it'
@@ -9,6 +9,10 @@ type LocaleState = { locale: Locale; setLocale: (locale: Locale) => void; t: (en
 const LocaleContext = createContext<LocaleState | null>(null)
 
 function initialLocale(): Locale {
+  const rendered = document.getElementById('root')?.getAttribute('data-locale')
+  if (rendered === 'en' || rendered === 'it') return rendered
+  const path = window.location.pathname.match(/^\/(en|it)(?:\/|$)/)?.[1]
+  if (path === 'en' || path === 'it') return path
   const url = new URLSearchParams(window.location.search).get('lang')
   if (url === 'en' || url === 'it') return url
   const saved = window.localStorage.getItem('dkps-language')
@@ -16,14 +20,19 @@ function initialLocale(): Locale {
   return navigator.language.toLowerCase().startsWith('it') ? 'it' : 'en'
 }
 
-export function LocaleProvider({ children }: { children: ReactNode }) {
+export function LocaleProvider({ children, serverLocale }: { children: ReactNode; serverLocale?: Locale }) {
   const location = useLocation()
-  const navigate = useNavigate()
-  const [locale, updateLocale] = useState<Locale>(initialLocale)
+  const [locale] = useState<Locale>(serverLocale ?? initialLocale)
 
   useEffect(() => {
+    if (/^\/(en|it)(?:\/|$)/.test(window.location.pathname)) return
     const url = new URLSearchParams(location.search).get('lang')
-    if (url === 'en' || url === 'it') updateLocale(url)
+    if (url === 'en' || url === 'it') {
+      const search = new URLSearchParams(location.search)
+      search.delete('lang')
+      const path = location.pathname.endsWith('/') ? location.pathname : `${location.pathname}/`
+      window.location.replace(`/${url}${path}${search.size ? `?${search}` : ''}${location.hash}`)
+    }
   }, [location.search])
 
   useEffect(() => {
@@ -32,10 +41,11 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   }, [locale])
 
   function setLocale(next: Locale) {
-    updateLocale(next)
     const search = new URLSearchParams(location.search)
-    search.set('lang', next)
-    navigate({ pathname: location.pathname, search: `?${search}`, hash: location.hash }, { replace: true })
+    search.delete('lang')
+    const path = location.pathname.endsWith('/') ? location.pathname : `${location.pathname}/`
+    const target = `/${next}${path}${search.size ? `?${search}` : ''}${location.hash}`
+    window.location.assign(target)
   }
 
   const t = (english: string) => locale === 'it' ? italian[english] ?? english : english
@@ -48,23 +58,21 @@ export function useLocale() {
   return value
 }
 
-function withLanguage(to: string, locale: Locale) {
+function withLanguage(to: string) {
   if (/^(mailto:|https?:|tel:)/.test(to)) return to
   const url = new URL(to, 'https://dkps.local')
-  url.searchParams.set('lang', locale)
-  return `${url.pathname}${url.search}${url.hash}`
+  const path = url.pathname.endsWith('/') ? url.pathname : `${url.pathname}/`
+  return `${path}${url.search}${url.hash}`
 }
 
 type LinkProps = Omit<ComponentProps<typeof RouterLink>, 'to'> & { to: string }
 export function Link({ to, ...props }: LinkProps) {
-  const { locale } = useLocale()
-  return <RouterLink to={withLanguage(to, locale)} {...props} />
+  return <RouterLink to={withLanguage(to)} {...props} />
 }
 
 type NavLinkProps = Omit<ComponentProps<typeof RouterNavLink>, 'to'> & { to: string }
 export function NavLink({ to, ...props }: NavLinkProps) {
-  const { locale } = useLocale()
-  return <RouterNavLink to={withLanguage(to, locale)} {...props} />
+  return <RouterNavLink to={withLanguage(to)} {...props} />
 }
 
 const textProps = ['title', 'lead', 'eyebrow', 'text', 'index', 'alt', 'aria-label', 'placeholder'] as const
