@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { Link, Localize } from './i18n'
+import { Link, Localize, useLocale } from './i18n'
 import { industries, platformFeatures, systemLayers } from './content'
 import { ContactCta, Eyebrow, PageIntro, SectionHeading, TextLink } from './layout'
 
@@ -40,6 +40,12 @@ function SystemFlow() {
 }
 
 export function HomePage() {
+  const { locale } = useLocale()
+  const featuredSlugs = locale === 'it'
+    ? ['logistics-transport', 'agriculture-wine', 'mountain-operations', 'security']
+    : ['logistics-transport', 'hospitality-hotels', 'manufacturing', 'security']
+  const featuredIndustries = featuredSlugs.map(slug => industries.find(industry => industry.slug === slug))
+    .filter((industry): industry is typeof industries[number] => Boolean(industry))
   return <Localize>
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-hero-photo">
@@ -65,7 +71,7 @@ export function HomePage() {
 
     <section className="section site-wrap">
       <SectionHeading index="02 / Applications" title="Built for work that does not stand still." text="Communication requirements change with people, facilities and geography. The system can be planned for the operating pattern, not just the device count." />
-      <div className="application-grid">{industries.slice(0, 4).map((industry, index) => <Link key={industry.slug} to={`/industries#${industry.slug}`} className="application-item"><span>0{index + 1}</span><h3>{industry.name}</h3><p>{industry.context}</p><b aria-hidden="true">↗</b></Link>)}</div>
+      <div className="application-grid">{featuredIndustries.map((industry, index) => <Link key={industry.slug} to={`/industries#${industry.slug}`} className="application-item"><span>0{index + 1}</span><h3>{industry.name}</h3><p>{industry.context}</p><b aria-hidden="true">↗</b></Link>)}</div>
       <div className="section-end"><TextLink to="/industries">View all industries</TextLink><TextLink to="/solutions">Explore operational solutions</TextLink></div>
     </section>
 

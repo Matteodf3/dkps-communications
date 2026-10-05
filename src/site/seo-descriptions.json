@@ -1,15 +1,15 @@
 {
   "/": {
     "en": "DKPS designs professional Push-to-Talk communication systems connecting radios, cellular networks, a PTT platform and dispatch for teams, sites and vehicles.",
-    "it": "DKPS progetta sistemi Push-to-Talk professionali che collegano radio, rete cellulare, piattaforma PTT e dispatch per team, sedi e veicoli."
+    "it": "DKPS progetta sistemi radio professionali che collegano rete cellulare, piattaforma PTT e centrale operativa per team, sedi e veicoli."
   },
   "/system": {
     "en": "Explore how DKPS combines devices, cellular connectivity, PTT software, groups and dispatch into a communication system built around an operation.",
-    "it": "Scopri come DKPS unisce dispositivi, connettività cellulare, software PTT, gruppi e dispatch in un sistema costruito attorno all’operatività."
+    "it": "Scopri come DKPS unisce dispositivi, connettività cellulare, software PTT, gruppi e centrale operativa in un sistema costruito attorno all’operatività."
   },
   "/platform": {
     "en": "See how a PTT platform can organise communication groups, user roles and dispatch access for field teams and control rooms.",
-    "it": "Scopri come una piattaforma PTT organizza gruppi di comunicazione, ruoli degli utenti e accesso al dispatch per team e sale controllo."
+    "it": "Scopri come una piattaforma PTT organizza gruppi di comunicazione, ruoli degli utenti e accesso alla centrale operativa."
   },
   "/devices": {
     "en": "Explore professional radios, body cameras and accessories for logistics, warehouses, security and mountain operations. DKPS selects equipment around the system.",
@@ -17,7 +17,7 @@
   },
   "/devices/logistics": {
     "en": "Explore radios and accessories to consider for drivers, vehicles, depots and transport dispatch within a professional communication system.",
-    "it": "Esplora radio e accessori da valutare per autisti, veicoli, depositi e dispatch dei trasporti in un sistema di comunicazione professionale."
+    "it": "Esplora radio e accessori da valutare per autisti, veicoli, depositi e centrale operativa dei trasporti."
   },
   "/devices/warehousing": {
     "en": "Explore portable radios, headsets and accessories to consider for warehouse, loading and yard teams.",
@@ -37,11 +37,11 @@
   },
   "/industries": {
     "en": "Communication requirements for logistics, hospitality, manufacturing, security and other operations with teams, sites and vehicles to coordinate.",
-    "it": "Esigenze di comunicazione per logistica, hospitality, industria, sicurezza e altre attività che coordinano team, sedi e veicoli."
+    "it": "Comunicazioni per logistica, agricoltura e vino, montagna e impianti, sicurezza e altre attività che coordinano team, sedi e veicoli."
   },
   "/solutions": {
     "en": "Explore operational communication needs: connecting multiple sites, coordinating vehicles, supporting international teams and centralising dispatch.",
-    "it": "Esplora le esigenze di comunicazione operativa: collegare più sedi, coordinare veicoli, supportare team internazionali e centralizzare il dispatch."
+    "it": "Esplora le esigenze di comunicazione operativa: collegare più sedi, coordinare veicoli, supportare team internazionali e gestire una centrale operativa."
   },
   "/plans": {
     "en": "Understand the factors DKPS considers when planning devices, connectivity, PTT groups, permissions and support for an organisation.",

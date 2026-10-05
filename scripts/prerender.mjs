@@ -7,7 +7,7 @@ const descriptions = JSON.parse(await readFile('src/site/seo-descriptions.json',
 const routes = [
   ['/', 'Professional Push-to-Talk communication systems', 'Sistemi di comunicazione Push-to-Talk professionali'],
   ['/system', 'A communication system built around your operation', 'Un sistema di comunicazione costruito attorno alla tua operatività'],
-  ['/platform', 'PTT platform and dispatch', 'Piattaforma PTT e dispatch'],
+  ['/platform', 'PTT platform and dispatch', 'Piattaforma PTT e centrale operativa'],
   ['/devices', 'Professional radios, bodycams and accessories', 'Radio professionali, bodycam e accessori'],
   ['/devices/logistics', 'Equipment for logistics and transport', 'Dispositivi per logistica e trasporti'],
   ['/devices/warehousing', 'Equipment for warehouses and yards', 'Dispositivi per magazzini e piazzali'],

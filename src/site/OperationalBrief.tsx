@@ -8,7 +8,7 @@ type Choice = { key: string; en: string; it: string; image?: string }
 const sectors: Choice[] = [
   { key: 'logistics', en: 'Logistics & transport', it: 'Logistica e trasporti', image: '/images/warehouse-real-30824313.jpeg' },
   { key: 'industry', en: 'Industry & maintenance', it: 'Industria e manutenzione', image: '/images/warehouse-real-36696522.jpeg' },
-  { key: 'hospitality', en: 'Hotels & hospitality', it: 'Hotel e hospitality', image: '/images/brief-hospitality.jpeg' },
+  { key: 'hospitality', en: 'Hotels & hospitality', it: 'Hotel e ospitalità', image: '/images/brief-hospitality.jpeg' },
   { key: 'security', en: 'Security', it: 'Sicurezza', image: '/images/brief-security.jpeg' },
   { key: 'construction', en: 'Construction & engineering', it: 'Cantieri e impiantistica', image: '/images/brief-construction.jpeg' },
   { key: 'other', en: 'Another operation', it: 'Un’altra attività' },
@@ -48,7 +48,7 @@ const connections: Choice[] = [
   { key: 'vehicles', en: 'Vehicles', it: 'Veicoli' },
   { key: 'field', en: 'Field operators', it: 'Operatori sul territorio' },
   { key: 'international', en: 'People in different countries', it: 'Persone in Paesi diversi' },
-  { key: 'dispatch', en: 'Control room / dispatch', it: 'Sala controllo / dispatch' },
+  { key: 'dispatch', en: 'Control room / dispatch', it: 'Centrale operativa' },
 ]
 
 const modes: Choice[] = [
@@ -176,7 +176,7 @@ export function OperationalBrief() {
           </>}
           {step === 3 && <>
             <h2 ref={headingRef} tabIndex={-1}>{tr('Let’s talk about your system.', 'Parliamo del vostro sistema.')}</h2>
-            <p className="brief-lead">{tr('Your brief gives DKPS a starting point for discussing devices, connectivity, PTT groups and dispatch. Add your contact details and send it.', 'Il brief dà a DKPS un punto di partenza per parlare di dispositivi, connettività, gruppi PTT e dispatch. Aggiungi i tuoi recapiti e invialo.')}</p>
+            <p className="brief-lead">{tr('Your brief gives DKPS a starting point for discussing devices, connectivity, PTT groups and dispatch. Add your contact details and send it.', 'Il brief dà a DKPS un punto di partenza per parlare di dispositivi, connettività, gruppi PTT e centrale operativa. Aggiungi i tuoi recapiti e invialo.')}</p>
             <div className="brief-summary brief-summary--mobile"><BriefSummary summary={summary} locale={locale} context={context} /></div>
             <form className="contact-form brief-form" name="dkps-operational-brief" data-netlify="true" netlify-honeypot="bot-field" onSubmit={submitBrief}>
               <input type="hidden" name="form-name" value="dkps-operational-brief" />
@@ -207,7 +207,7 @@ export function OperationalBrief() {
             </div>
             <div className="brief-map-path" aria-hidden="true"><span /></div>
             <div className="brief-map-core"><small>01 / {tr('COMMUNICATION LAYER', 'LIVELLO DI COMUNICAZIONE')}</small><strong>PTT PLATFORM</strong><span>{tr('Radio + cellular connectivity', 'Radio + connettività cellulare')}</span></div>
-            <div className="brief-map-out"><span aria-hidden="true">↓</span><div className={connectionKeys.includes('dispatch') ? 'brief-map-dispatch is-active' : 'brief-map-dispatch'}>{tr('Control room / dispatch', 'Sala controllo / dispatch')}</div></div>
+            <div className="brief-map-out"><span aria-hidden="true">↓</span><div className={connectionKeys.includes('dispatch') ? 'brief-map-dispatch is-active' : 'brief-map-dispatch'}>{tr('Control room / dispatch', 'Centrale operativa')}</div></div>
           </div>
           <div className="brief-visual-foot">{tr('Illustrative communication structure. DKPS defines the actual configuration with you.', 'Schema illustrativo. DKPS definisce la configurazione effettiva insieme a voi.')}</div>
           {step === 3 && <div className="brief-summary brief-summary--desktop"><BriefSummary summary={summary} locale={locale} context={context} /></div>}
