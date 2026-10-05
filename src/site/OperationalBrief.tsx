@@ -14,6 +14,33 @@ const sectors: Choice[] = [
   { key: 'other', en: 'Another operation', it: 'Un’altra attività' },
 ]
 
+const activities: Choice[] = [
+  { key: 'freight', en: 'Freight transport', it: 'Trasporto merci' },
+  { key: 'passenger', en: 'Passenger transport', it: 'Trasporto passeggeri' },
+  { key: 'courier', en: 'Courier and last-mile delivery', it: 'Corrieri e consegne ultimo miglio' },
+  { key: 'warehouse', en: 'Warehousing', it: 'Magazzini' },
+  { key: 'yard', en: 'Loading yards and terminals', it: 'Piazzali e terminal merci' },
+  { key: 'port', en: 'Ports and maritime operations', it: 'Porti e operazioni marittime' },
+  { key: 'airport', en: 'Airports and ground handling', it: 'Aeroporti e servizi di terra' },
+  { key: 'rail', en: 'Rail operations', it: 'Operazioni ferroviarie' },
+  { key: 'hotel', en: 'Hotels and resorts', it: 'Hotel e resort' },
+  { key: 'events', en: 'Events and venues', it: 'Eventi e strutture per eventi' },
+  { key: 'factory', en: 'Manufacturing plants', it: 'Stabilimenti produttivi' },
+  { key: 'maintenance', en: 'Industrial maintenance', it: 'Manutenzione industriale' },
+  { key: 'utilities', en: 'Utilities and infrastructure', it: 'Servizi pubblici e infrastrutture' },
+  { key: 'construction', en: 'Construction sites', it: 'Cantieri edili' },
+  { key: 'plant', en: 'Plant engineering', it: 'Impiantistica' },
+  { key: 'security', en: 'Private security', it: 'Vigilanza privata' },
+  { key: 'emergency', en: 'Emergency response', it: 'Interventi di emergenza' },
+  { key: 'mountain', en: 'Ski resorts and mountain operations', it: 'Comprensori sciistici e operazioni in montagna' },
+  { key: 'lifts', en: 'Ski lifts and cableways', it: 'Impianti di risalita e funivie' },
+  { key: 'rescue', en: 'Mountain rescue', it: 'Soccorso alpino' },
+  { key: 'healthcare', en: 'Healthcare facilities', it: 'Strutture sanitarie' },
+  { key: 'campus', en: 'Campuses and large facilities', it: 'Campus e grandi strutture' },
+  { key: 'agriculture', en: 'Agriculture and field operations', it: 'Agricoltura e lavoro sul territorio' },
+  { key: 'municipal', en: 'Municipal services', it: 'Servizi comunali' },
+]
+
 const connections: Choice[] = [
   { key: 'teams', en: 'Teams', it: 'Team' },
   { key: 'departments', en: 'Departments', it: 'Reparti' },
@@ -50,6 +77,8 @@ export function OperationalBrief() {
   const context = new URLSearchParams(location.search).get('context') ?? ''
   const [step, setStep] = useState(0)
   const [sectorKeys, setSectorKeys] = useState<string[]>([])
+  const [activity, setActivity] = useState('')
+  const [activityOpen, setActivityOpen] = useState(false)
   const [connectionKeys, setConnectionKeys] = useState<string[]>([])
   const [sizeRange, setSizeRange] = useState('')
   const [modeKeys, setModeKeys] = useState<string[]>([])
@@ -74,12 +103,14 @@ export function OperationalBrief() {
 
   const selectedConnections = connections.filter(choice => connectionKeys.includes(choice.key) && choice.key !== 'dispatch')
   const mapSources = selectedConnections.length ? selectedConnections : connections.slice(0, 3)
-  const summary = [
+  const activityMatches = activities.filter(choice => label(choice, locale).toLocaleLowerCase(locale).includes(activity.trim().toLocaleLowerCase(locale))).slice(0, 7)
+  const summary: [string, string[]][] = [
     [tr('Environment', 'Settore'), picked(sectors, sectorKeys, locale)],
+    ...(activity.trim() ? [[tr('Activity', 'Attività'), [activity.trim()]] as [string, string[]]] : []),
     [tr('To connect', 'Da collegare'), picked(connections, connectionKeys, locale)],
     [tr('Users / devices', 'Utenti / dispositivi'), sizeRange ? [sizeRange] : []],
     [tr('Communication', 'Comunicazione'), picked(modes, modeKeys, locale)],
-  ] as const
+  ]
 
   async function submitBrief(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -130,7 +161,7 @@ export function OperationalBrief() {
           {step === 0 && <>
             <h2 ref={headingRef} tabIndex={-1}>{tr('Where do you work?', 'Dove lavorate?')}</h2>
             <p className="brief-lead">{tr('Select one or more environments. This gives us context; your communication system will be shaped around your actual operation.', 'Scegli uno o più ambiti. Ci danno un contesto; il sistema sarà progettato sulla vostra operatività reale.')}</p>
-            <div className="brief-sector-grid">{sectors.map((choice, index) => <button key={choice.key} type="button" className={`brief-sector${sectorKeys.includes(choice.key) ? ' is-selected' : ''}${choice.image ? ' has-image' : ''}`} aria-pressed={sectorKeys.includes(choice.key)} onClick={() => toggle(choice.key, sectorKeys, setSectorKeys)}>{choice.image && <img src={choice.image} alt="" loading="lazy" />}<span className="brief-sector-shade" /><span className="brief-sector-index">0{index + 1}</span><strong>{label(choice, locale)}</strong><span className="brief-sector-check" aria-hidden="true">{sectorKeys.includes(choice.key) ? '✓' : '+'}</span></button>)}</div><p className="brief-photo-note">{tr('Illustrative photography; the people shown are not DKPS customers.', 'Fotografie illustrative; le persone ritratte non sono clienti DKPS.')}</p>
+            <div className="brief-sector-grid">{sectors.filter(choice => choice.key !== 'other').map((choice, index) => <button key={choice.key} type="button" className={`brief-sector${sectorKeys.includes(choice.key) ? ' is-selected' : ''}${choice.image ? ' has-image' : ''}`} aria-pressed={sectorKeys.includes(choice.key)} onClick={() => toggle(choice.key, sectorKeys, setSectorKeys)}>{choice.image && <img src={choice.image} alt="" loading="lazy" />}<span className="brief-sector-shade" /><span className="brief-sector-index">0{index + 1}</span><strong>{label(choice, locale)}</strong><span className="brief-sector-check" aria-hidden="true">{sectorKeys.includes(choice.key) ? '✓' : '+'}</span></button>)}<div className="brief-sector brief-sector--search"><span className="brief-sector-index">06</span><label htmlFor="brief-activity">{tr('Another activity?', 'Un’altra attività?')}</label><input id="brief-activity" type="search" autoComplete="off" value={activity} placeholder={tr('Search or write your activity', 'Cerca o scrivi la tua attività')} onChange={event => { const next = event.target.value; setActivity(next); setActivityOpen(true); setSectorKeys(keys => next.trim() ? [...keys.filter(key => key !== 'other'), 'other'] : keys.filter(key => key !== 'other')) }} onFocus={() => setActivityOpen(true)} onBlur={() => window.setTimeout(() => setActivityOpen(false), 150)} aria-controls="brief-activity-options" aria-expanded={activityOpen} />{activityOpen && activityMatches.length > 0 && <div className="brief-activity-options" id="brief-activity-options" role="listbox" aria-label={tr('Suggested activities', 'Attività suggerite')}>{activityMatches.map(choice => <button key={choice.key} type="button" role="option" aria-selected={activity === label(choice, locale)} onMouseDown={event => event.preventDefault()} onClick={() => { setActivity(label(choice, locale)); setSectorKeys(keys => [...keys.filter(key => key !== 'other'), 'other']); setActivityOpen(false) }}>{label(choice, locale)}</button>)}</div>}</div></div><p className="brief-photo-note">{tr('Illustrative photography; the people shown are not DKPS customers.', 'Fotografie illustrative; le persone ritratte non sono clienti DKPS.')}</p>
           </>}
           {step === 1 && <>
             <h2 ref={headingRef} tabIndex={-1}>{tr('What needs to stay connected?', 'Cosa deve restare collegato?')}</h2>
@@ -150,6 +181,7 @@ export function OperationalBrief() {
             <form className="contact-form brief-form" name="dkps-operational-brief" data-netlify="true" netlify-honeypot="bot-field" onSubmit={submitBrief}>
               <input type="hidden" name="form-name" value="dkps-operational-brief" />
               <input type="hidden" name="sector" value={picked(sectors, sectorKeys, 'en').join(', ')} />
+              <input type="hidden" name="activity" value={activity.trim()} />
               <input type="hidden" name="scope" value={picked(connections, connectionKeys, 'en').join(', ')} />
               <input type="hidden" name="users-devices" value={sizeRange} />
               <input type="hidden" name="communication" value={picked(modes, modeKeys, 'en').join(', ')} />

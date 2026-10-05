@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
 import { SiteLayout } from './site/layout'
-import { ConnectivityPage, DevicesPage, HomePage, PlatformPage, SystemPage } from './site/pages-primary'
+import { ConnectivityPage, HomePage, PlatformPage, SystemPage } from './site/pages-primary'
+import { DevicesPage, SectorEquipmentPage } from './site/EquipmentPages'
 import { AboutPage, ContactPage, IndustriesPage, NotFoundPage, PlansPage, PrivacyPage, SolutionsPage } from './site/pages-secondary'
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
       <Route path="system" element={<SystemPage />} />
       <Route path="platform" element={<PlatformPage />} />
       <Route path="devices" element={<DevicesPage />} />
+      <Route path="devices/:slug" element={<SectorEquipmentPage />} />
       <Route path="connectivity" element={<ConnectivityPage />} />
       <Route path="industries" element={<IndustriesPage />} />
       <Route path="solutions" element={<SolutionsPage />} />
