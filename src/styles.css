@@ -743,9 +743,22 @@ ul { padding-left: 20px; }
 .catalog-product-image span { position: absolute; top: 14px; left: 17px; color: #4d5652; font: 10px/1.4 'IBM Plex Mono',monospace; text-transform: uppercase; z-index: 1; }
 .catalog-product-image img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
 .catalog-product-image img[src$='.png'], .catalog-product-image img[src$='.webp'] { mix-blend-mode: normal; }
+#radios .catalog-product-grid { max-width: 1300px; gap: 14px; }
+#radios .catalog-product-image { height: clamp(224px,22.5vw,310px); padding: 30px; }
+#radios .catalog-product-image::after { content: ''; position: absolute; inset: auto 0 0; height: 2px; background: #ed6b61; transform: scaleX(0); transform-origin: left center; }
+@media (hover: hover) and (pointer: fine) {
+  #radios .catalog-product:hover .catalog-product-image::after { transform: scaleX(1); }
+  #radios .catalog-product-links a:first-child:hover { color: #ff8a82; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  #radios .catalog-product-image img { transition: transform 240ms cubic-bezier(.23,1,.32,1); }
+  #radios .catalog-product-image::after { transition: transform 240ms cubic-bezier(.23,1,.32,1); }
+  #radios .catalog-product:hover .catalog-product-image img { transform: translateY(-5px) scale(1.035); }
+}
 .catalog-product-copy { display: flex; flex-direction: column; min-height: 226px; padding: 21px 22px 23px; }
 .catalog-product-copy > div:first-child p { color: #ed6b61; font: 10px/1.4 'IBM Plex Mono',monospace; text-transform: uppercase; }
 .catalog-product-copy h3 { margin: 4px 0 8px; font-size: clamp(24px,2.2vw,32px); font-weight: 500; letter-spacing: -.04em; }
+#radios .catalog-product-copy h3 { font-size: clamp(23px,2vw,29px); }
 .catalog-product-copy > div:first-child span { display: block; color: #e1e6e1; font-size: 12px; }
 .catalog-product-copy > p { margin: 14px 0 21px; color: #bfc8c1; font-size: 12px; }
 .catalog-product-highlights { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 0; margin: 0 0 21px; list-style: none; }
@@ -783,6 +796,7 @@ ul { padding-left: 20px; }
 @media (max-width: 800px) {
   .catalog-product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .catalog-product-image { height: 260px; }
+  #radios .catalog-product-image { height: 250px; }
   .sector-overview { gap: 6%; }
 }
 @media (max-width: 560px) {
@@ -795,6 +809,7 @@ ul { padding-left: 20px; }
   .catalog-category-heading > p { margin-top: 10px; }
   .catalog-product-grid { grid-template-columns: 1fr; }
   .catalog-product-image { height: 310px; }
+  #radios .catalog-product-image { height: 292px; }
   .catalog-product-copy { min-height: 0; }
   .catalog-accessory-list { grid-template-columns: 1fr; gap: 18px; }
   .catalog-accessory-list ul { grid-template-columns: 1fr; }
