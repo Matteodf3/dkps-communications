@@ -1,6 +1,8 @@
+import { useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { equipment, sectors } from './equipment-data'
 import type { Copy, Equipment, EquipmentCategory } from './equipment-data'
+import { radioComparison } from './radio-comparison-data'
 import { Link, useLocale } from './i18n'
 import { ContactCta, PageIntro, TextLink } from './layout'
 
@@ -43,20 +45,117 @@ const sectorComponents: Record<string, Copy[]> = {
   ],
 }
 
-function ProductCard({ product, index }: { product: Equipment; index: number }) {
+function ProductCard({ product, index, onCompare }: { product: Equipment; index: number; onCompare?: (product: Equipment) => void }) {
   const { locale } = useLocale()
   const copy = (value: Copy) => value[locale]
   return <article className={`catalog-product catalog-product--${product.id}`}>
     <div className="catalog-product-image"><span>{String(index + 1).padStart(2, '0')} / {product.article ?? product.maker}</span>{product.image && <img src={product.image} alt={`${product.article ?? product.maker} — ${product.model}`} loading="lazy" />}</div>
-    <div className="catalog-product-copy"><div><p>{product.article ?? product.maker}</p><h3>{product.model}</h3><span>{copy(product.role)}</span></div><p>{copy(product.description)}</p>{product.highlights && <ul className="catalog-product-highlights">{product.highlights.map(item => <li key={item.en}>{copy(item)}</li>)}</ul>}<div className="catalog-product-links"><Link to={`/contact?context=${encodeURIComponent(product.article ? `${product.article} — ${product.model}` : `${product.maker} ${product.model}`)}`}>{locale === 'it' ? 'Parla con DKPS' : 'Talk to DKPS'} ↗</Link>{product.source && <a href={product.source} target="_blank" rel="noopener noreferrer">{locale === 'it' ? 'Scheda del produttore' : 'Manufacturer page'} ↗</a>}</div></div>
+    <div className="catalog-product-copy"><div><p>{product.article ?? product.maker}</p><h3>{product.model}</h3><span>{copy(product.role)}</span></div><p>{copy(product.description)}</p>{product.highlights && <ul className="catalog-product-highlights">{product.highlights.map(item => <li key={item.en}>{copy(item)}</li>)}</ul>}<div className="catalog-product-links"><Link to={`/contact?context=${encodeURIComponent(product.article ? `${product.article} — ${product.model}` : `${product.maker} ${product.model}`)}`}>{locale === 'it' ? 'Parla con DKPS' : 'Talk to DKPS'} ↗</Link>{onCompare && <button type="button" onClick={() => onCompare(product)} aria-label={`${locale === 'it' ? 'Confronta' : 'Compare'} ${product.article} — ${product.model}`}>{locale === 'it' ? 'Confronta' : 'Compare'} ↗</button>}{product.source && <a href={product.source} target="_blank" rel="noopener noreferrer">{locale === 'it' ? 'Scheda del produttore' : 'Manufacturer page'} ↗</a>}</div></div>
   </article>
 }
 
-function Category({ category, products }: { category: typeof categories[number]; products: Equipment[] }) {
+const featuredRadioIds = ['dkps-radhh-010', 'dkps-radhh-014', 'dkps-radhh-011', 'dkps-radhh-006']
+
+function FeaturedRadios({ products }: { products: Equipment[] }) {
   const { locale } = useLocale()
+  const featured = featuredRadioIds.map(id => products.find(product => product.id === id)).filter((product): product is Equipment => Boolean(product))
+  const [selectedId, setSelectedId] = useState(featuredRadioIds[0])
+  const selected = featured.find(product => product.id === selectedId) ?? featured[0]
+
+  if (!selected) return null
+
+  return <div className="featured-radios" aria-label={locale === 'it' ? 'Radio in primo piano' : 'Featured radios'}>
+    <div className="featured-radios-main">
+      <div className="featured-radios-visual">
+        <span className="featured-radios-overline">DKPS / {locale === 'it' ? 'RADIO IN EVIDENZA' : 'FEATURED RADIO'}</span>
+        {selected.image && <img key={selected.id} src={selected.image} alt={`${selected.article} — ${selected.model}`} />}
+        <span className="featured-radios-photo-note">{selected.article}</span>
+      </div>
+      <div className="featured-radios-detail" aria-live="polite">
+        <p className="featured-radios-index">{String(featured.findIndex(product => product.id === selected.id) + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}</p>
+        <p className="featured-radios-article">{selected.article}</p>
+        <h3>{selected.model}</h3>
+        <p className="featured-radios-description">{selected.description[locale]}</p>
+        <div className="featured-radios-specs"><span>{locale === 'it' ? 'DATI PRINCIPALI' : 'KEY DETAILS'}</span><ul>{selected.highlights?.slice(0, 3).map(item => <li key={item.en}>{item[locale]}</li>)}</ul></div>
+        <p className="featured-radios-role"><span>{locale === 'it' ? 'INDICATA PER' : 'SUITED TO'}</span>{selected.role[locale]}</p>
+        <Link className="featured-radios-cta" to={`/contact?context=${encodeURIComponent(`${selected.article} — ${selected.model}`)}`}>{locale === 'it' ? 'Parla con DKPS per la configurazione' : 'Talk to DKPS about configuration'} <span aria-hidden="true">↗</span></Link>
+      </div>
+    </div>
+    <div className="featured-radios-selector" role="group" aria-label={locale === 'it' ? 'Seleziona una radio' : 'Select a radio'}>
+      {featured.map((product, index) => <button key={product.id} type="button" className={product.id === selected.id ? 'is-active' : ''} aria-pressed={product.id === selected.id} onClick={() => setSelectedId(product.id)}><span>{String(index + 1).padStart(2, '0')}</span><strong>{product.model}</strong><small>{product.article}</small></button>)}
+    </div>
+  </div>
+}
+
+function CompareRadios({ products, selection, onSelectionChange }: { products: Equipment[]; selection: [string, string]; onSelectionChange: (selection: [string, string]) => void }) {
+  const { locale } = useLocale()
+  const [leftId, rightId] = selection
+  const left = products.find(product => product.id === leftId) ?? products[0]
+  const right = products.find(product => product.id === rightId) ?? products[1]
+
+  if (!left || !right) return null
+
+  const selectRadio = (side: 'left' | 'right', id: string) => {
+    if (side === 'left') {
+      onSelectionChange([id, id === rightId ? leftId : rightId])
+    } else {
+      onSelectionChange([id === leftId ? rightId : leftId, id])
+    }
+  }
+  const compared = [left, right]
+  const fields = [
+    { key: 'network', label: { en: 'Network', it: 'Rete' } },
+    { key: 'battery', label: { en: 'Battery', it: 'Batteria' } },
+    { key: 'protection', label: { en: 'Protection', it: 'Protezione' } },
+    { key: 'display', label: { en: 'Display', it: 'Schermo' } },
+    { key: 'controls', label: { en: 'Controls', it: 'Comandi' } },
+    { key: 'wireless', label: { en: 'Other connections', it: 'Altre connessioni' } },
+  ] as const
+  const valueFor = (product: Equipment, field: typeof fields[number]['key']) => {
+    const value = radioComparison[product.id]?.[field]
+    if (value === 'confirm') return <span className="radio-compare-unconfirmed">{locale === 'it' ? 'Da confermare' : 'To confirm'}</span>
+    if (!value) return <span className="radio-compare-unstated">{locale === 'it' ? 'Non indicato' : 'Not stated'}</span>
+    return value[locale]
+  }
+
+  return <section className="radio-compare" aria-labelledby="radio-compare-title">
+    <div className="radio-compare-heading"><div><span>{locale === 'it' ? 'STRUMENTO DI SCELTA' : 'SELECTION TOOL'}</span><h3 id="radio-compare-title">{locale === 'it' ? 'Confronta due radio.' : 'Compare two radios.'}</h3></div><p>{locale === 'it' ? 'Scegli due modelli dell’elenco DKPS. Il confronto mostra solo i dati riportati nei flyer.' : 'Choose two models from the DKPS list. The comparison shows only data stated in the flyers.'}</p></div>
+    <div className="radio-compare-picks">
+      {compared.map((product, index) => <div className="radio-compare-pick" key={index}>
+        <label htmlFor={`radio-compare-${index}`}>RADIO {index + 1}</label>
+        <select id={`radio-compare-${index}`} value={product.id} onChange={event => selectRadio(index === 0 ? 'left' : 'right', event.target.value)}>{products.map(option => <option key={option.id} value={option.id}>{option.article} — {option.model}</option>)}</select>
+        <div className="radio-compare-identity"><div>{product.image && <img src={product.image} alt={product.model} loading="lazy" />}</div><p><strong>{product.model}</strong><span>{product.article}</span></p></div>
+      </div>)}
+    </div>
+    <table className="radio-compare-table"><thead><tr><th scope="col"><span className="radio-compare-desktop-label">{locale === 'it' ? 'CARATTERISTICA' : 'SPECIFICATION'}</span><span className="radio-compare-mobile-label">{locale === 'it' ? 'DATO' : 'DATA'}</span></th>{compared.map(product => <th scope="col" key={product.id}><span className="radio-compare-desktop-label">{product.article}</span><span className="radio-compare-mobile-label">{product.article?.replace('DKPS-', '')}</span></th>)}</tr></thead><tbody>{fields.map(field => <tr key={field.key}><th scope="row">{field.label[locale]}</th>{compared.map(product => <td key={product.id}>{valueFor(product, field.key)}</td>)}</tr>)}</tbody></table>
+    {(radioComparison[left.id]?.note || radioComparison[right.id]?.note) && <div className="radio-compare-notes">{compared.map(product => radioComparison[product.id]?.note && <p key={product.id}><strong>{product.article}</strong> — {radioComparison[product.id].note?.[locale]}</p>)}</div>}
+    <div className="radio-compare-end"><p>{locale === 'it' ? '“Non indicato” significa che la fonte non riporta il dato. “Da confermare” segnala una discordanza nella fonte.' : '“Not stated” means the source does not provide the value. “To confirm” marks a conflict in the source.'}</p><Link to={`/contact?context=${encodeURIComponent(`${left.article} / ${right.article}`)}`}>{locale === 'it' ? 'Parliamo della scelta' : 'Discuss the choice'} <span aria-hidden="true">↗</span></Link></div>
+  </section>
+}
+
+function Category({ category, products, featured = false }: { category: typeof categories[number]; products: Equipment[]; featured?: boolean }) {
+  const { locale } = useLocale()
+  const [compareOpen, setCompareOpen] = useState(false)
+  const [compareSelection, setCompareSelection] = useState<[string, string]>(['dkps-radhh-010', 'dkps-radhh-014'])
+  const compareRef = useRef<HTMLDivElement>(null)
+  const openComparison = (product: Equipment) => {
+    const alternative = compareSelection[1] === product.id ? compareSelection[0] : compareSelection[1]
+    setCompareSelection([product.id, alternative])
+    setCompareOpen(true)
+    requestAnimationFrame(() => {
+      compareRef.current?.scrollIntoView({ block: 'start' })
+      compareRef.current?.querySelector('select')?.focus({ preventScroll: true })
+    })
+  }
   return <section className="catalog-category" id={category.id} aria-labelledby={`${category.id}-title`}>
-    <div className="catalog-category-heading"><div><span>0{categories.indexOf(category) + 1} / {locale === 'it' ? 'DISPOSITIVI' : 'EQUIPMENT'}</span><h2 id={`${category.id}-title`}>{category.title[locale]}</h2></div><p>{category.intro[locale]}</p></div>
-    <div className="catalog-product-grid">{products.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}</div>
+    <div className="catalog-category-heading"><div><span>0{categories.indexOf(category) + 1} / {locale === 'it' ? 'DISPOSITIVI' : 'EQUIPMENT'}</span><h2 id={`${category.id}-title`}>{featured ? (locale === 'it' ? 'Radio in evidenza' : 'Featured radios') : category.title[locale]}</h2></div><p>{featured ? (locale === 'it' ? 'Una selezione di dispositivi per esigenze operative diverse.' : 'A selection of devices for different operational needs.') : category.intro[locale]}</p></div>
+    {featured && <FeaturedRadios products={products} />}
+    {featured && <p className="catalog-full-label">{locale === 'it' ? 'CATALOGO COMPLETO' : 'FULL CATALOGUE'} <span>{String(products.length).padStart(2, '0')} {locale === 'it' ? 'MODELLI' : 'MODELS'}</span></p>}
+    <div className="catalog-product-grid">{products.map((product, index) => <ProductCard key={product.id} product={product} index={index} onCompare={featured ? openComparison : undefined} />)}</div>
+    {featured && <div className="radio-compare-disclosure" ref={compareRef}>
+      <button type="button" className="radio-compare-toggle" aria-expanded={compareOpen} aria-controls="radio-compare-content" onClick={() => setCompareOpen(open => !open)}><span><small>{locale === 'it' ? 'STRUMENTO DI SCELTA' : 'SELECTION TOOL'}</small><strong>{compareOpen ? (locale === 'it' ? 'Nascondi il confronto' : 'Hide comparison') : (locale === 'it' ? 'Non sai quale scegliere? Confronta due modelli.' : 'Not sure which to choose? Compare two models.')}</strong></span><b aria-hidden="true">{compareOpen ? '−' : '↗'}</b></button>
+      <div id="radio-compare-content" hidden={!compareOpen}>{compareOpen && <CompareRadios products={products} selection={compareSelection} onSelectionChange={setCompareSelection} />}</div>
+    </div>}
     {category.id === 'accessories' && <div className="catalog-accessory-list"><h3>{locale === 'it' ? 'Altre componenti da configurare' : 'Further components to configure'}</h3><ul>{additionalAccessories.map(item => <li key={item.en}>{item[locale]}</li>)}</ul></div>}
   </section>
 }
@@ -69,7 +168,7 @@ export function DevicesPage() {
       <div className="section-heading"><span>01 / {locale === 'it' ? 'AMBITI' : 'OPERATIONS'}</span><h2>{locale === 'it' ? 'Scegli l’ambito. Esplora i dispositivi.' : 'Choose the operation. Explore the equipment.'}</h2><p>{locale === 'it' ? 'Ogni pagina mostra radio, video e accessori da valutare per quell’ambiente. Non sono pacchetti fissi.' : 'Each page shows radios, video and accessories to consider for that environment. These are not fixed bundles.'}</p></div>
       <div className="operation-kit-grid">{sectors.map((sector, index) => <article className="operation-kit" key={sector.slug}><div className={`operation-kit-image operation-kit-image--${sector.slug}`}><img src={sector.image} alt="" loading="lazy" /><span>{locale === 'it' ? 'AMBITO' : 'OPERATION'} / 0{index + 1}</span></div><div className="operation-kit-body"><h3>{sector.title[locale]}</h3><p>{sector.summary[locale]}</p><Link className="operation-kit-link" to={`/devices/${sector.slug}`}>{locale === 'it' ? 'Esplora i prodotti' : 'Explore equipment'} <span aria-hidden="true">↗</span></Link></div></article>)}</div>
     </section>
-    <section className="equipment-gallery" aria-label={locale === 'it' ? 'Catalogo dispositivi' : 'Equipment selection'}><div className="site-wrap"><div className="equipment-gallery-top"><div><p className="eyebrow">02 / {locale === 'it' ? 'DISPOSITIVI' : 'EQUIPMENT'}</p><h2>{locale === 'it' ? 'Dispositivi scelti per il sistema.' : 'Equipment selected for the system.'}</h2></div><p>{locale === 'it' ? 'Radio dall’elenco prodotti DKPS. Bodycam e accessori restano esempi da verificare per disponibilità e compatibilità durante la progettazione.' : 'Radios from the DKPS product list. Body cameras and accessories remain examples whose availability and compatibility are checked during project design.'}</p></div><nav className="catalog-jump" aria-label={locale === 'it' ? 'Categorie dispositivi' : 'Equipment categories'}>{categories.map((category, index) => <a key={category.id} href={`#${category.id}`}><span>0{index + 1}</span>{category.title[locale]} <b aria-hidden="true">↗</b></a>)}</nav>{categories.map(category => <Category key={category.id} category={category} products={equipment.filter(product => product.category === category.id)} />)}<p className="catalog-disclaimer">{locale === 'it' ? 'Le foto delle radio provengono dai flyer DKPS forniti. Alcune schede originali contengono dati discordanti: le caratteristiche in conflitto richiedono conferma. Le bodycam e gli accessori mostrati non sono compresi nell’elenco stock ricevuto; DKPS ne verifica disponibilità e compatibilità con le radio scelte.' : 'Radio photos come from the supplied DKPS flyers. Some original sheets contain conflicting data; affected specifications require confirmation. The body cameras and accessories shown were not included in the supplied stock list; DKPS checks their availability and compatibility with the chosen radios.'}</p></div></section>
+    <section className="equipment-gallery" aria-label={locale === 'it' ? 'Catalogo dispositivi' : 'Equipment selection'}><div className="site-wrap"><div className="equipment-gallery-top"><div><p className="eyebrow">02 / {locale === 'it' ? 'DISPOSITIVI' : 'EQUIPMENT'}</p><h2>{locale === 'it' ? 'Un dispositivo per ogni tipo di operatività.' : 'A device for every kind of operation.'}</h2></div><p>{locale === 'it' ? 'Dai terminali semplici per gli operatori ai dispositivi smart e veicolari per supervisione e coordinamento. DKPS configura hardware, connettività e piattaforma attorno al lavoro.' : 'From simple operator radios to smart and vehicle devices for supervision and coordination. DKPS configures hardware, connectivity and platform around the work.'}</p></div><nav className="catalog-jump" aria-label={locale === 'it' ? 'Categorie dispositivi' : 'Equipment categories'}>{categories.map((category, index) => <a key={category.id} href={`#${category.id}`}><span>0{index + 1}</span>{category.title[locale]} <b aria-hidden="true">↗</b></a>)}</nav>{categories.map(category => <Category key={category.id} category={category} products={equipment.filter(product => product.category === category.id)} featured={category.id === 'radios'} />)}<p className="catalog-disclaimer">{locale === 'it' ? 'Le foto delle radio provengono dai flyer DKPS forniti. Alcune schede originali contengono dati discordanti: le caratteristiche in conflitto richiedono conferma. Le bodycam e gli accessori mostrati non sono compresi nell’elenco stock ricevuto; DKPS ne verifica disponibilità e compatibilità con le radio scelte.' : 'Radio photos come from the supplied DKPS flyers. Some original sheets contain conflicting data; affected specifications require confirmation. The body cameras and accessories shown were not included in the supplied stock list; DKPS checks their availability and compatibility with the chosen radios.'}</p></div></section>
     <ContactCta title={locale === 'it' ? 'Partiamo dalla tua operatività. Definiamo insieme il sistema.' : 'Start with your operation. Define the system together.'} />
   </>
 }
