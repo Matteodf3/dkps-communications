@@ -6,7 +6,7 @@ Source: the 14 supplied `Dukapis Flyer N.pdf` files and `DKPS_Codex_Radio_Source
 
 | Article | Source inconsistency or unresolved point |
 | --- | --- |
-| DKPS-RADHH-018 / DKPS-RADHH-024 | The two articles have different product photographs, but their names, specifications and feature text are otherwise identical in the supplied list. They remain separate catalogue entries. Confirm how the two models differ. |
+| DKPS-RADHH-018 / DKPS-RADHH-024 | The two articles have different product photographs, but their names, specifications and feature text are otherwise identical in the supplied list. The 024 photograph appears to show a screen-free radio, conflicting with the `4 Inch Touchscreen` name and display specification. They remain separate catalogue entries; the website omits the disputed 024 display, battery and protection claims pending confirmation. |
 | DKPS-RADHH-011 | The main feature list includes Galileo in GNSS; the technical table lists GPS, BeiDou and GLONASS only. The website omits the constellation list. |
 | DKPS-RADVH-002 | Title and description identify a vehicle/fixed mobile radio, while key features call it a handheld. The technical table says 146 mm and 193 g; key features say 127 mm and 246 g. Vehicle fit and physical specifications need confirmation before configuration. |
 | DKPS-RADHH-004 | The technical table's `Bluetooth` field contains dimensions (`40 × 60 × 127 mm`), while its dimensions row says `52 × 55 × 146 mm`. Display, battery, protection, cameras and NFC appear in feature lists without equivalent technical-table confirmation. The website omits those values. |
