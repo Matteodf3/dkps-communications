@@ -52,7 +52,7 @@ The primary navigation is Solutions, Products, Industries, About and the brief C
 
 ## Images
 
-- The new DKPS Signal / Network mark is an original vector interpretation of the supplied concept. `public/brand/` contains versions for dark and light backgrounds plus the standalone symbol; `public/favicon.svg` is the small-size icon. `scripts/generate-brand-assets.py` regenerates the outlined wordmarks from the bundled IBM Plex fonts with Python `fonttools` and `brotli`.
+- The header, footer and favicon use the DKPS monochrome logo supplied by the company. The three original vector files are preserved in `brand-source/`; its README records how the six supplied files map to the website assets.
 - The homepage hero uses a user-supplied illustrative image. A separate portrait rendition derived from it is served up to 800 px so operators, radios and signal arc remain visible on phones and portrait tablets. Neither image depicts a verified DKPS deployment or customer.
 - The [warehouse operation photograph](https://www.pexels.com/photo/industrial-warehouse-with-forklifts-in-action-36696522/) and [warehouse aisle photograph](https://www.pexels.com/photo/modern-warehouse-operations-with-employees-and-forklift-30824313/) are illustrative and do not depict DKPS customers.
 - The brief also uses illustrative Pexels photography for [hotel operations](https://www.pexels.com/photo/housekeepers-changing-sheets-in-hotel-room-9462740/), [security operations](https://www.pexels.com/photo/security-officer-in-dark-control-room-with-monitors-30692441/) and [construction](https://www.pexels.com/photo/construction-workers-on-the-building-site-10202865/). These images do not depict DKPS clients.

@@ -16,7 +16,7 @@ a { color: inherit; }
 .prototype-header { height: 78px; position: relative; z-index: 5; background: #17191b; border-bottom: 1px solid #343639; }
 .prototype-header-inner { width: min(calc(100% - 96px), 1360px); height: 100%; margin: auto; display: flex; align-items: center; justify-content: space-between; }
 .prototype-header-inner > a { display: inline-flex; align-items: center; }
-.prototype-header img { display: block; width: 146px; height: auto; }
+.prototype-header img { display: block; width: 146px; height: auto; mix-blend-mode: screen; }
 .prototype-header nav { display: flex; gap: 44px; align-items: center; }
 .prototype-header nav a { font-size: 13px; text-decoration: none; letter-spacing: .025em; }
 .prototype-header nav a:hover, .prototype-header nav a:focus-visible { text-decoration: underline; text-underline-offset: 5px; }

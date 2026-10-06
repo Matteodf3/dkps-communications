@@ -64,7 +64,7 @@ function Header() {
   return <Localize><header className="site-header" onKeyDown={onKeyDown}>
     <div className="header-inner site-wrap">
       <Link className="brand" to="/" aria-label="DKPS Communications — home" onClick={() => setMenuOpen(false)}>
-        <img src="/brand/dkps-logo-on-dark.svg" alt="DKPS Communications" width="243" height="84" />
+        <img src="/brand/dkps-logo-monochrome.jpeg" alt="DKPS Communications" width="2048" height="828" />
       </Link>
       <button ref={toggle} className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(value => !value)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{menuOpen ? '×' : '+'}</span></button>
       <nav id="primary-navigation" className={menuOpen ? 'primary-nav primary-nav--open' : 'primary-nav'} aria-label="Primary navigation">
@@ -85,7 +85,7 @@ function Footer() {
   return <Localize><footer className="site-footer">
     <div className="site-wrap footer-main">
       <div className="footer-brand">
-        <Link to="/" aria-label="DKPS Communications — home"><img src="/brand/dkps-logo-on-dark.svg" alt="DKPS Communications" width="243" height="84" /></Link>
+        <Link to="/" aria-label="DKPS Communications — home"><img src="/brand/dkps-logo-monochrome.jpeg" alt="DKPS Communications" width="2048" height="828" /></Link>
         <p>Professional Push-to-Talk communication systems designed around the operation.</p>
         <a className="footer-email" href="mailto:info@dkpscommunications.com">info@dkpscommunications.com</a>
         <p className="footer-company">Dukapis &amp; Co. s.r.l.s.<br />VAT / P.IVA 13205921003<br />Operational presence: Rome, Italy</p>
