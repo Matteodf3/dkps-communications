@@ -44,8 +44,9 @@ ul { padding-left: 20px; }
 /* Site navigation */
 .site-header { position: sticky; top: 0; z-index: 20; color: var(--white); background: #17191b; border-bottom: 1px solid #393c3f; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 76px; }
-.brand { display: inline-flex; flex: 0 0 auto; align-items: center; width: 166px; }
+.brand { position: relative; display: inline-flex; flex: 0 0 auto; align-items: center; width: 150px; }
 .brand img { width: 100%; height: auto; mix-blend-mode: screen; }
+.brand-signal { position: absolute; left: 16%; top: 41.9%; width: 8.1%; height: 22.8%; background: #e7473e; clip-path: polygon(2% 2%, 97% 50%, 2% 98%); pointer-events: none; }
 .primary-nav { display: flex; align-items: center; gap: clamp(15px, 2.3vw, 32px); }
 .nav-link, .nav-contact, .client-access { display: inline-flex; align-items: center; min-height: 76px; border-bottom: 2px solid transparent; text-decoration: none; font-size: 12px; white-space: nowrap; }
 .nav-link:hover, .nav-link--active { border-bottom-color: #e7473e; }
@@ -288,6 +289,7 @@ ul { padding-left: 20px; }
 .contact-band .text-link span { color: white; }
 .site-footer { background: #151719; color: #f3f4f2; }
 .footer-main { display: grid; grid-template-columns: minmax(280px,1.6fr) repeat(2,minmax(160px,.7fr)); gap: 50px; padding-block: 72px; }
+.footer-brand > a { position: relative; display: inline-flex; }
 .footer-brand img { width: 166px; height: auto; mix-blend-mode: screen; }
 .footer-brand p { color: #b4b9b8; max-width: 310px; font-size: 14px; margin: 30px 0 20px; }
 .footer-brand .footer-email { color: #f2f3f1; font-size: 14px; text-underline-offset: 5px; overflow-wrap: anywhere; }
@@ -308,7 +310,7 @@ ul { padding-left: 20px; }
 @media (max-width: 1100px) {
   .site-wrap { width: calc(100% - 64px); }
   .header-inner { gap: 20px; }
-  .brand { width: 145px; }
+  .brand { width: 136px; }
   .primary-nav { gap: 16px; }
   .nav-link, .nav-contact, .client-access { font-size: 11px; }
   .page-intro-grid { gap: 45px; }
@@ -324,7 +326,7 @@ ul { padding-left: 20px; }
   .site-wrap { width: calc(100% - 48px); }
   .site-header { position: relative; }
   .header-inner { min-height: 68px; }
-  .brand { width: 145px; }
+  .brand { width: 136px; }
   .menu-toggle { display: flex; align-items: center; gap: 20px; border: 1px solid #686d6e; background: transparent; color: #fff; min-height: 42px; padding: 8px 12px; font-size: 12px; }
   .menu-toggle span { font-size: 19px; line-height: 1; }
   .primary-nav { display: none; position: absolute; top: 68px; left: 0; right: 0; z-index: 30; background: #17191b; border-top: 1px solid #393c3f; padding: 8px 24px 22px; }
