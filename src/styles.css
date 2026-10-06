@@ -743,19 +743,17 @@ ul { padding-left: 20px; }
 .catalog-product-image span { position: absolute; top: 14px; left: 17px; color: #4d5652; font: 10px/1.4 'IBM Plex Mono',monospace; text-transform: uppercase; z-index: 1; }
 .catalog-product-image img { display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
 .catalog-product-image img[src$='.png'], .catalog-product-image img[src$='.webp'] { mix-blend-mode: normal; }
-.catalog-product--tlk110 .catalog-product-image img { transform: scale(1.55); }
-.catalog-product--tlk150 .catalog-product-image img { transform: scale(1.7); }
-.catalog-product--mnc360 .catalog-product-image img { transform: scale(1.55); }
-.catalog-product--pnc360s .catalog-product-image img { transform: scale(1.4); }
-.catalog-product--pnc380 .catalog-product-image img { transform: scale(1.7); }
 .catalog-product-copy { display: flex; flex-direction: column; min-height: 226px; padding: 21px 22px 23px; }
 .catalog-product-copy > div:first-child p { color: #ed6b61; font: 10px/1.4 'IBM Plex Mono',monospace; text-transform: uppercase; }
 .catalog-product-copy h3 { margin: 4px 0 8px; font-size: clamp(24px,2.2vw,32px); font-weight: 500; letter-spacing: -.04em; }
 .catalog-product-copy > div:first-child span { display: block; color: #e1e6e1; font-size: 12px; }
 .catalog-product-copy > p { margin: 14px 0 21px; color: #bfc8c1; font-size: 12px; }
+.catalog-product-highlights { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 0; margin: 0 0 21px; list-style: none; }
+.catalog-product-highlights li { color: #e1e6e1; font: 10px/1.5 'IBM Plex Mono',monospace; }
+.catalog-product-highlights li::before { content: '—'; margin-right: 7px; color: #ed6b61; }
 .catalog-product-links { display: flex; flex-wrap: wrap; gap: 7px 18px; margin-top: auto; padding-top: 12px; border-top: 1px solid #616966; }
 .catalog-product-links a { color: #f5f7f3; font-size: 11px; text-underline-offset: 4px; }
-.catalog-product-links a:last-child { color: #b4beb7; }
+.catalog-product-links a + a { color: #b4beb7; }
 .catalog-accessory-list { display: grid; grid-template-columns: minmax(170px,.32fr) 1fr; gap: 30px; padding: 28px 0; margin-top: 17px; border-top: 1px solid #616966; }
 .catalog-accessory-list h3 { color: #ed6b61; font: 11px/1.5 'IBM Plex Mono',monospace; text-transform: uppercase; }
 .catalog-accessory-list ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px 25px; padding: 0; list-style: none; }
